@@ -1,0 +1,2 @@
+rootProject.name = 'pairmate_backend'
+include 'common-libs', 'user-service', 'pay-service', 'review-service', 'event-service', 'store-service'

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: event-service
+
+server:
+  port: 8085
+
+user:
+  default-role: USER
