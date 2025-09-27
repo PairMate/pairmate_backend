@@ -1,2 +1,14 @@
-rootProject.name = 'pairmate_backend'
-include 'common-libs', 'user-service', 'pay-service', 'review-service', 'event-service', 'store-service'
+rootProject.name = 'pairmate'
+
+// 공통 모듈 등록
+include 'common-libs'
+
+// 개별 서비스 등록
+include 'config-server'
+include 'eureka-server'
+include 'gateway-service'
+include 'user-service'
+include 'store-service'
+include 'event-service'
+include 'pay-service'
+include 'review-service'
