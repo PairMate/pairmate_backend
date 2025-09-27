@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-libs/common-libs.pairmate.common-libs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-libs/common-libs.pairmate.common-libs.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-libs/pairmate.common-libs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-libs/pairmate.common-libs.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/pairmate.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/pairmate.user-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/review-service/pairmate_backend.review-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/review-service/pairmate_backend.review-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-service/pairmate_backend.store-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-service/pairmate_backend.store-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/pairmate_backend.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/pairmate_backend.user-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/user-service.pairmate.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/user-service.pairmate.user-service.main.iml" />
     </modules>
   </component>
 </project>

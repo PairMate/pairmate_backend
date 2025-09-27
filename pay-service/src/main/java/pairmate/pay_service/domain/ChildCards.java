@@ -24,9 +24,7 @@ public class ChildCards extends BaseEntity {
     @Column(name = "card_id", nullable = false)
     private Long cardId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "user_id", nullable = false)
-    private Users user;
+    private Long userId;
 
     @Column(name = "card_num", nullable = false, length = 100)
     private String cardNum;

@@ -7,6 +7,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import pairmate.review_service.domain.common.BaseEntity;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @DynamicUpdate
@@ -25,7 +27,7 @@ public class Reviews extends BaseEntity {
     private Float starRating;
 
     @Column(name = "visit_date", nullable = false)
-    private java.time.LocalDateTime visitDate;
+    private LocalDateTime visitDate;
 
     @Column(name = "content", length = 200, nullable = false)
     private String content;
