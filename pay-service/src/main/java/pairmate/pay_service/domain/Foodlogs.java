@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import pairmate.store_service.domain.Menus;
-import pairmate.user_service.domain.Users;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -25,14 +22,10 @@ public class Foodlogs {
     private Long foodLogId;
 
     // 메뉴 FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id", nullable = false)
-    private Menus menu;
+    private Long menuId;
 
     // 유저 FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private Long userId;
 
     @Column(name = "is_used", nullable = false)
     private Boolean isUsed;
