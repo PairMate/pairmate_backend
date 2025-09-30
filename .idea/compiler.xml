@@ -8,6 +8,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.32/17d46b3e205515e1e8efd3ee4d57ce8018914163/lombok-1.18.32.jar" />
         </processorPath>
         <module name="pairmate.config-server.main" />
+        <module name="pairmate.eureka-server.main" />
         <module name="pairmate.gateway-service.main" />
         <module name="pairmate.event-service.main" />
         <module name="pairmate.store-service.test" />
@@ -18,7 +19,9 @@
         <module name="pairmate.user-service.test" />
         <module name="pairmate.pay-service.test" />
         <module name="pairmate.review-service.main" />
+        <module name="pairmate.common-libs.test" />
         <module name="pairmate.event-service.test" />
+        <module name="pairmate.eureka-server.test" />
         <module name="user-service.pairmate.user-service.main" />
         <module name="pairmate.review-service.test" />
       </profile>
@@ -28,13 +31,6 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
         </processorPath>
         <module name="common-libs.pairmate.common-libs.main" />
-      </profile>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.40/398c6d2d7c42c96b65e78d2ddc9be0058c163453/lombok-1.18.40.jar" />
-        </processorPath>
-        <module name="pairmate.eureka-server.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
