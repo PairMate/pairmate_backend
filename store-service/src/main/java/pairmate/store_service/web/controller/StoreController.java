@@ -2,6 +2,7 @@ package pairmate.store_service.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pairmate.store_service.service.StoreService;
 import pairmate.store_service.web.dto.MenuResponse;
@@ -10,6 +11,7 @@ import pairmate.store_service.web.dto.StoreResponse;
 
 import java.util.List;
 
+@Controller
 @RestController
 @RequestMapping("/stores")
 @RequiredArgsConstructor
