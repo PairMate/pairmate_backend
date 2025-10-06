@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.5.6' apply false
+    id 'org.springframework.boot' version '3.2.0' apply false
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -24,7 +24,6 @@ subprojects {
         }
     }
 
-    // root에서 bootJar 비활성화 → 실행 안되도록
     tasks.withType(org.springframework.boot.gradle.tasks.bundling.BootJar).configureEach {
         enabled = false
     }
@@ -42,13 +41,16 @@ subprojects {
         testCompileOnly 'org.projectlombok:lombok:1.18.32'
         testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
-        // 자주 쓰는 검증 공통
-        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        // 공통 검증 → common-libs 에서는 제외
+        if (project.name != "common-libs") {
+            implementation 'org.springframework.boot:spring-boot-starter-validation'
+        }
     }
 }
 
+
 ext {
-    set('springCloudVersion', "2023.0.1")
+    set('springCloudVersion', "2023.0.3")
 }
 
 dependencyManagement {

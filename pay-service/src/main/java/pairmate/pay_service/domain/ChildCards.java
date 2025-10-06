@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import pairmate.pay_service.domain.common.BaseEntity;
-import pairmate.user_service.domain.Users;
 
 import java.time.LocalDate;
 
