@@ -16,6 +16,7 @@
         <module name="pairmate.pay-service.main" />
         <module name="pairmate.config-server.test" />
         <module name="pairmate.store-service.main" />
+        <module name="pairmate.user-service.main" />
         <module name="pairmate.user-service.test" />
         <module name="pairmate.pay-service.test" />
         <module name="pairmate.review-service.main" />
@@ -23,7 +24,6 @@
         <module name="pairmate.event-service.test" />
         <module name="pairmate.eureka-server.test" />
         <module name="common-libs.pairmate.common-libs.main" />
-        <module name="user-service.pairmate.user-service.main" />
         <module name="pairmate.review-service.test" />
       </profile>
     </annotationProcessing>
@@ -82,6 +82,7 @@
       <module name="pairmate_backend.test" target="17" />
       <module name="pairmate_backend.user-service" target="17" />
       <module name="pairmate_backend.user-service.test" target="17" />
+      <module name="user-service.pairmate.user-service.main" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
