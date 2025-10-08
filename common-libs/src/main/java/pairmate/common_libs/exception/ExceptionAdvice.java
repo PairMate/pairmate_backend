@@ -46,10 +46,12 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
     // @Valid @RequestBody DTO 검증 실패
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
-                                                                  HttpHeaders headers,
-                                                                  HttpStatusCode status,
-                                                                  WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException e,
+            HttpHeaders headers,
+            HttpStatusCode status,
+            WebRequest request) {
+
         Map<String, String> errors = new LinkedHashMap<>();
         e.getBindingResult().getFieldErrors().forEach(fieldError -> {
             String field = fieldError.getField();
@@ -61,10 +63,12 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 ErrorCode.INVALID_REQUEST,
                 errors
         );
+
         return handleExceptionInternal(e, body, headers,
                 ErrorCode.INVALID_REQUEST.getHttpStatus(),
                 request);
     }
+
 
     // 모든 미처리 예외 → 500
     @ExceptionHandler(Exception.class)
