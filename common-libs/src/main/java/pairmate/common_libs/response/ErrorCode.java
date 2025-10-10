@@ -30,7 +30,15 @@ public enum ErrorCode implements BaseCode {
     USER_NOT_FOUND(HttpStatus.UNAUTHORIZED, "AUTH-401", "해당 사용자를 찾을 수 없습니다."),
     LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "AUTH-401", "로그인에 실패했습니다."),
     TOKEN_REISSUE_FAILED(HttpStatus.UNAUTHORIZED, "AUTH-401", "토큰 재발급에 실패했습니다."),
-    ALREADY_LOGGED_OUT(HttpStatus.UNAUTHORIZED, "AUTH-401", "이미 로그아웃된 토큰입니다.");
+    ALREADY_LOGGED_OUT(HttpStatus.UNAUTHORIZED, "AUTH-401", "이미 로그아웃된 토큰입니다."),
+
+
+    // USER 에러
+    DUPLICATE_LOGIN_ID(HttpStatus.CONFLICT, "USER-409", "이미 존재하는 로그인 ID입니다."),
+    DUPLICATE_NICKNAME(HttpStatus.CONFLICT, "USER-409", "이미 사용 중인 닉네임입니다."),
+    INVALID_PASSWORD_FORMAT(HttpStatus.BAD_REQUEST, "USER-400", "비밀번호 형식이 올바르지 않습니다."),
+    INVALID_NICKNAME_FORMAT(HttpStatus.BAD_REQUEST, "USER-400", "닉네임 형식이 올바르지 않습니다."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "USER-400", "비밀번호가 일치하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
