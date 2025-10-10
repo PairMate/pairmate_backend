@@ -16,7 +16,6 @@
         <module name="pairmate.pay-service.main" />
         <module name="pairmate.config-server.test" />
         <module name="pairmate.store-service.main" />
-        <module name="pairmate.user-service.main" />
         <module name="pairmate.user-service.test" />
         <module name="pairmate.pay-service.test" />
         <module name="pairmate.review-service.main" />
@@ -24,6 +23,7 @@
         <module name="pairmate.event-service.test" />
         <module name="pairmate.eureka-server.test" />
         <module name="common-libs.pairmate.common-libs.main" />
+        <module name="user-service.pairmate.user-service.main" />
         <module name="pairmate.review-service.test" />
       </profile>
     </annotationProcessing>
@@ -31,6 +31,9 @@
       <module name="cloud.pairmate_backend.review-service.main" target="17" />
       <module name="cloud.pairmate_backend.store-service.main" target="17" />
       <module name="cloud.pairmate_backend.user-service.main" target="17" />
+      <module name="event-service" target="17" />
+      <module name="event-service.main" target="17" />
+      <module name="event-service.test" target="17" />
       <module name="gateway-service" target="17" />
       <module name="gateway-service.main" target="17" />
       <module name="gateway-service.test" target="17" />
@@ -82,7 +85,9 @@
       <module name="pairmate_backend.test" target="17" />
       <module name="pairmate_backend.user-service" target="17" />
       <module name="pairmate_backend.user-service.test" target="17" />
-      <module name="user-service.pairmate.user-service.main" target="17" />
+      <module name="user-service" target="17" />
+      <module name="user-service.main" target="17" />
+      <module name="user-service.test" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
