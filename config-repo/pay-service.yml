@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: pay-service
-
-server:
-  port: 8082
-
-user:
-  default-role: USER
