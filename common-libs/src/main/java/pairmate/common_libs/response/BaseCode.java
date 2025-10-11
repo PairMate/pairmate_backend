@@ -1,9 +1,9 @@
 package pairmate.common_libs.response;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 public interface BaseCode {
-    HttpStatus getHttpStatus();
+    HttpStatusCode getHttpStatus();
     String getCode();
     String getMessage();
 }
