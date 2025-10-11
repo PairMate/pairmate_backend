@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-libs/common-libs.pairmate.common-libs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-libs/common-libs.pairmate.common-libs.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-libs/pairmate.common-libs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-libs/pairmate.common-libs.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-server/pairmate.config-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/config-server/pairmate.config-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/pairmate.eureka-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/pairmate.eureka-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.main.iml" />
