@@ -2,7 +2,9 @@ package pairmate.review_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@EnableFeignClients(basePackages = "pairmate.review_service.feign")
 @SpringBootApplication
 public class ReviewServiceApplication {
 

@@ -7,125 +7,28 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.32/17d46b3e205515e1e8efd3ee4d57ce8018914163/lombok-1.18.32.jar" />
         </processorPath>
+        <module name="pairmate.common-libs.main" />
         <module name="pairmate.config-server.main" />
         <module name="pairmate.eureka-server.main" />
         <module name="pairmate.gateway-service.main" />
-        <module name="pairmate.event-service.main" />
-        <module name="pairmate.store-service.test" />
-        <module name="pairmate.gateway-service.test" />
+        <module name="user-service.pairmate.user-service.test" />
+        <module name="eureka-server.pairmate.eureka-server.test" />
+        <module name="gateway-service.pairmate.gateway-service.test" />
         <module name="pairmate.pay-service.main" />
-        <module name="pairmate.config-server.test" />
+        <module name="pay-service.pairmate.pay-service.test" />
         <module name="pairmate.store-service.main" />
-        <module name="pairmate.user-service.test" />
-        <module name="pairmate.pay-service.test" />
+        <module name="pairmate.user-service.main" />
+        <module name="review-service.pairmate.review-service.test" />
         <module name="pairmate.review-service.main" />
-        <module name="pairmate.common-libs.test" />
-        <module name="pairmate.event-service.test" />
-        <module name="pairmate.eureka-server.test" />
-<<<<<<< HEAD
-        <module name="user-service.pairmate.user-service.main" />
-        <module name="pairmate.review-service.test" />
+        <module name="common-libs.pairmate.common-libs.test" />
+        <module name="config-server.pairmate.config-server.test" />
+        <module name="store-service.pairmate.store-service.test" />
       </profile>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="common-libs.pairmate.common-libs.main" />
-      </profile>
-=======
-        <module name="common-libs.pairmate.common-libs.main" />
-        <module name="user-service.pairmate.user-service.main" />
-        <module name="pairmate.review-service.test" />
-      </profile>
->>>>>>> 7ef36b15b80b82ae7718e89355db9a595670dc93
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="cloud.pairmate_backend.review-service.main" target="17" />
-      <module name="cloud.pairmate_backend.store-service.main" target="17" />
-      <module name="cloud.pairmate_backend.user-service.main" target="17" />
-      <module name="gateway-service" target="17" />
-      <module name="gateway-service.main" target="17" />
-      <module name="gateway-service.test" target="17" />
-      <module name="pairmate-platform" target="17" />
-      <module name="pairmate-platform.common-libs" target="17" />
-      <module name="pairmate-platform.common-libs.main" target="17" />
-      <module name="pairmate-platform.common-libs.test" target="17" />
-      <module name="pairmate-platform.config-server" target="17" />
-      <module name="pairmate-platform.config-server.main" target="17" />
-      <module name="pairmate-platform.config-server.test" target="17" />
-      <module name="pairmate-platform.eureka-server" target="17" />
-      <module name="pairmate-platform.eureka-server.main" target="17" />
-      <module name="pairmate-platform.eureka-server.test" target="17" />
-      <module name="pairmate-platform.event-service" target="17" />
-      <module name="pairmate-platform.event-service.main" target="17" />
-      <module name="pairmate-platform.event-service.test" target="17" />
-      <module name="pairmate-platform.gateway-service" target="17" />
-      <module name="pairmate-platform.gateway-service.main" target="17" />
-      <module name="pairmate-platform.gateway-service.test" target="17" />
-      <module name="pairmate-platform.main" target="17" />
-      <module name="pairmate-platform.pay-service" target="17" />
-      <module name="pairmate-platform.pay-service.main" target="17" />
-      <module name="pairmate-platform.pay-service.test" target="17" />
-      <module name="pairmate-platform.review-service" target="17" />
-      <module name="pairmate-platform.review-service.main" target="17" />
-      <module name="pairmate-platform.review-service.test" target="17" />
-      <module name="pairmate-platform.store-service" target="17" />
-      <module name="pairmate-platform.store-service.main" target="17" />
-      <module name="pairmate-platform.store-service.test" target="17" />
-      <module name="pairmate-platform.test" target="17" />
-      <module name="pairmate-platform.user-service" target="17" />
-      <module name="pairmate-platform.user-service.main" target="17" />
-      <module name="pairmate-platform.user-service.test" target="17" />
-      <module name="pairmate_backend" target="17" />
-      <module name="pairmate_backend.common-libs" target="17" />
-      <module name="pairmate_backend.common-libs.main" target="17" />
-      <module name="pairmate_backend.common-libs.test" target="17" />
-      <module name="pairmate_backend.event-service" target="17" />
-      <module name="pairmate_backend.event-service.main" target="17" />
-      <module name="pairmate_backend.event-service.test" target="17" />
-      <module name="pairmate_backend.main" target="17" />
-      <module name="pairmate_backend.pay-service" target="17" />
-      <module name="pairmate_backend.pay-service.main" target="17" />
-      <module name="pairmate_backend.pay-service.test" target="17" />
-      <module name="pairmate_backend.review-service" target="17" />
-      <module name="pairmate_backend.review-service.test" target="17" />
-      <module name="pairmate_backend.store-service" target="17" />
-      <module name="pairmate_backend.store-service.test" target="17" />
-      <module name="pairmate_backend.test" target="17" />
-      <module name="pairmate_backend.user-service" target="17" />
-      <module name="pairmate_backend.user-service.test" target="17" />
+      <module name="event-service.pairmate.event-service.test" target="17" />
+      <module name="pairmate.event-service" target="17" />
+      <module name="pairmate.event-service.main" target="17" />
     </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="gateway-service" options="-parameters" />
-      <module name="gateway-service.main" options="-parameters" />
-      <module name="gateway-service.test" options="-parameters" />
-      <module name="pairmate.config-server" options="-parameters" />
-      <module name="pairmate.config-server.main" options="-parameters" />
-      <module name="pairmate.config-server.test" options="-parameters" />
-      <module name="pairmate.eureka-server" options="-parameters" />
-      <module name="pairmate.eureka-server.main" options="-parameters" />
-      <module name="pairmate.eureka-server.test" options="-parameters" />
-      <module name="pairmate.event-service" options="-parameters" />
-      <module name="pairmate.event-service.main" options="-parameters" />
-      <module name="pairmate.event-service.test" options="-parameters" />
-      <module name="pairmate.gateway-service" options="-parameters" />
-      <module name="pairmate.gateway-service.main" options="-parameters" />
-      <module name="pairmate.gateway-service.test" options="-parameters" />
-      <module name="pairmate.pay-service" options="-parameters" />
-      <module name="pairmate.pay-service.main" options="-parameters" />
-      <module name="pairmate.pay-service.test" options="-parameters" />
-      <module name="pairmate.review-service" options="-parameters" />
-      <module name="pairmate.review-service.main" options="-parameters" />
-      <module name="pairmate.review-service.test" options="-parameters" />
-      <module name="pairmate.store-service" options="-parameters" />
-      <module name="pairmate.store-service.main" options="-parameters" />
-      <module name="pairmate.store-service.test" options="-parameters" />
-      <module name="pairmate.user-service" options="-parameters" />
-      <module name="pairmate.user-service.test" options="-parameters" />
-      <module name="user-service.pairmate.user-service.main" options="-parameters" />
-    </option>
   </component>
 </project>

@@ -52,7 +52,10 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     // Kafka Bus
-    implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
+    // implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
+
+    // OpenFeign 의존성 추가
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 }
 
 dependencyManagement {
