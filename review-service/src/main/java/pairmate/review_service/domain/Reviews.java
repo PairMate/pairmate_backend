@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import pairmate.review_service.domain.common.BaseEntity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -31,4 +32,24 @@ public class Reviews extends BaseEntity {
 
     @Column(name = "content", length = 200, nullable = false)
     private String content;
+
+    // setter 메서드 추가
+    public void setStarRating(Float starRating) {
+        this.starRating = starRating;
+    }
+
+    public void setVisitDate(LocalDateTime visitDate) {
+        this.visitDate = visitDate;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    // update 메서드도 활용 가능
+    public void update(Float starRating, LocalDateTime visitDate, String content) {
+        this.starRating = starRating;
+        this.visitDate = visitDate;
+        this.content = content;
+    }
 }
