@@ -24,6 +24,10 @@ public class Reviews extends BaseEntity {
     @Column(name = "review_id", nullable = false)
     private Long reviewId;
 
+    // 가게ID를 임시로(?) 저장해 두기 위한 컬럼이에요
+    @Column(name = "store_id", nullable = false)
+    private Long storeId;
+
     @Column(name = "star_rating", nullable = false)
     private Float starRating;
 

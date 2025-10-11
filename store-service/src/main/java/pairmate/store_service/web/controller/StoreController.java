@@ -1,10 +1,13 @@
 package pairmate.store_service.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pairmate.store_service.domain.Stores;
+import pairmate.store_service.repository.StoreRepository;
 import pairmate.store_service.service.StoreService;
 import pairmate.store_service.web.dto.MenuResponse;
 import pairmate.store_service.web.dto.StoreRegisterRequest;
@@ -19,6 +22,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreController {
     private final StoreService storeService;
+    private final StoreRepository storeRepository;
+
+
+    // review-service에서 storeId 사용하려면 요러케 해야해요
+    @GetMapping("/{storeId}")
+    public ResponseEntity<Stores> getStoreById(@PathVariable Long storeId) {
+        return storeRepository.findById(storeId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     // 추천 가게 목록 조회
     @Operation(
