@@ -6,20 +6,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pairmate.store_service.service.MenuService;
-import pairmate.store_service.web.dto.MenuResponse;
-
-import java.util.List;
+import pairmate.store_service.service.SearchService;
+import pairmate.store_service.web.dto.SearchResponse;
 
 @Controller
 @RestController
-@RequestMapping("/menus")
+@RequestMapping("/search")
 @RequiredArgsConstructor
-public class MenuController {
-    private final MenuService menuService;
+public class SearchController {
+    private final SearchService searchService;
 
-    @GetMapping("/recommend/random")
-    public List<MenuResponse> getRandomMenus(@RequestParam(defaultValue = "1") int count) {
-        return menuService.getRandomMenus(count);
+    @GetMapping
+    public SearchResponse search(@RequestParam("q") String query) {
+        return searchService.search(query);
     }
 }
