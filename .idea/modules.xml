@@ -8,9 +8,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2105587273/pairmate.eureka-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/2105587273/pairmate.eureka-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pairmate.event-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pairmate.event-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1900281310/pairmate.gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1900281310/pairmate.gateway-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/959134030/pairmate.review-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/959134030/pairmate.review-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-159938565/pairmate.store-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/-159938565/pairmate.store-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-service/pairmate.store-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-service/pairmate.store-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/pairmate.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/pairmate.user-service.main.iml" />
     </modules>
   </component>
