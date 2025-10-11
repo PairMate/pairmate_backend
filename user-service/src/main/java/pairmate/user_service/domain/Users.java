@@ -20,20 +20,22 @@ public class Users extends BaseEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname", unique = true, nullable = false)
     private String nickname;
+
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "login_id", nullable = false)
+    @Column(name = "login_id", unique = true, nullable = false)
     private String loginId;
 
     @Column(name = "profile_url", length = 255, nullable = true)
     private String profileUrl;
 
     @Column(name = "is_active", nullable = false)
-    private String isActive;
+    @Builder.Default
+    private String isActive = "ACTIVE";
 
     @Column(name = "user_role", length = 15, nullable = false)
     private String userRole;
