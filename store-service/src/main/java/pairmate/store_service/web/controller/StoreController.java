@@ -2,7 +2,6 @@ package pairmate.store_service.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/stores")
-@Tag(name = "Stores", description = "식당 관련 API")    // 아직 스웨거 설정을 안해서 일단 tag만 미리 달아두겠음
+// @Tag(name = "Stores", description = "식당 관련 API")    // 아직 스웨거 설정을 안해서 일단 tag만 미리 달아두겠습니다
 @RequiredArgsConstructor
 public class StoreController {
     private final StoreService storeService;
