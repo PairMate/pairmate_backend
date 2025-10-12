@@ -1,11 +1,11 @@
-package pairmate.review_service.web.controller;
+package pairmate.review_service.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pairmate.review_service.service.ReviewService;
-import pairmate.review_service.web.dto.ReviewRequest;
-import pairmate.review_service.web.dto.ReviewResponse;
+import pairmate.review_service.dto.ReviewRequest;
+import pairmate.review_service.dto.ReviewResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

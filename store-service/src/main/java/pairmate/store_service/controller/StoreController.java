@@ -1,4 +1,4 @@
-package pairmate.store_service.web.controller;
+package pairmate.store_service.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import pairmate.store_service.domain.Stores;
 import pairmate.store_service.repository.StoreRepository;
 import pairmate.store_service.service.StoreService;
-import pairmate.store_service.web.dto.MenuResponse;
-import pairmate.store_service.web.dto.StoreRegisterRequest;
-import pairmate.store_service.web.dto.StoreResponse;
+import pairmate.store_service.dto.MenuResponse;
+import pairmate.store_service.dto.StoreRegisterRequest;
+import pairmate.store_service.dto.StoreResponse;
 
 import java.util.List;
 

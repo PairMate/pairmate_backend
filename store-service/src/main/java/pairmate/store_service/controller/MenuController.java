@@ -1,4 +1,4 @@
-package pairmate.store_service.web.controller;
+package pairmate.store_service.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pairmate.store_service.service.MenuService;
-import pairmate.store_service.web.dto.MenuResponse;
+import pairmate.store_service.dto.MenuResponse;
 
 import java.util.List;
 

@@ -9,8 +9,8 @@ import pairmate.review_service.feign.StoreClient;
 import pairmate.review_service.feign.StoreResponse;
 import pairmate.review_service.repository.ReviewImageRepository;
 import pairmate.review_service.repository.ReviewRepository;
-import pairmate.review_service.web.dto.ReviewRequest;
-import pairmate.review_service.web.dto.ReviewResponse;
+import pairmate.review_service.dto.ReviewRequest;
+import pairmate.review_service.dto.ReviewResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;

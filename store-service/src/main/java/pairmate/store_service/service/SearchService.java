@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pairmate.store_service.repository.StoreRepository;
 import pairmate.store_service.repository.MenuRepository;
-import pairmate.store_service.web.dto.SearchResponse;
-import pairmate.store_service.web.dto.StoreResponse;
-import pairmate.store_service.web.dto.MenuResponse;
+import pairmate.store_service.dto.SearchResponse;
+import pairmate.store_service.dto.StoreResponse;
+import pairmate.store_service.dto.MenuResponse;
 
 import java.util.List;
 

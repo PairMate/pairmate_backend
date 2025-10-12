@@ -9,9 +9,9 @@ import pairmate.store_service.domain.StoreCategories;
 import pairmate.store_service.repository.StoreCategoryRepository;
 import pairmate.store_service.repository.StoreRepository;
 import pairmate.store_service.repository.MenuRepository;
-import pairmate.store_service.web.dto.StoreRegisterRequest;
-import pairmate.store_service.web.dto.StoreResponse;
-import pairmate.store_service.web.dto.MenuResponse;
+import pairmate.store_service.dto.StoreRegisterRequest;
+import pairmate.store_service.dto.StoreResponse;
+import pairmate.store_service.dto.MenuResponse;
 
 import java.util.List;
 
