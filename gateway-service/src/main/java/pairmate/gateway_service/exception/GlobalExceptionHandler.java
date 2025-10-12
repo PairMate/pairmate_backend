@@ -7,6 +7,7 @@ import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.resource.NoResourceFoundException;
 import org.springframework.web.server.ServerWebExchange;
 import pairmate.common_libs.exception.CustomException;
 import pairmate.common_libs.response.ApiResponse;
@@ -26,7 +27,25 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
         log.error("[Global Error Handler] {}", ex.getMessage(), ex);
+
+        String path = exchange.getRequest().getURI().getPath();
+
+        if (path.startsWith("/swagger-ui")
+                || path.startsWith("/webjars")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.equals("/favicon.ico")
+                || path.equals("/index.html")) {
+            return exchange.getResponse().setComplete();
+        }
+
+        if (ex instanceof NoResourceFoundException) {
+            log.debug("[No Resource Found Ignored] {}", path);
+            return exchange.getResponse().setComplete();
+        }
+
 
         ApiResponse<Object> body;
         int status;

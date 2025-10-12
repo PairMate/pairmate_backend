@@ -1,9 +1,15 @@
 package pairmate.user_service.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pairmate.user_service.domain.Users;
 
 public class UserDTO {
 
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class LoginResponseDTO {
         private Long userId;
         private String nickname;
@@ -18,7 +24,9 @@ public class UserDTO {
         }
     }
 
-
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class UserResponseDTO {
         private Long userId;
         private String nickname;

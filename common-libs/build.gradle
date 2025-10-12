@@ -16,6 +16,13 @@ repositories {
     mavenCentral()
 }
 
+tasks.named('bootJar') {
+    enabled = false
+}
+tasks.named('jar') {
+    enabled = true
+}
+
 dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.32'
@@ -24,5 +31,4 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
     // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
