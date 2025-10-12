@@ -1,5 +1,6 @@
 package pairmate.store_service.web.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import pairmate.store_service.web.dto.SearchResponse;
 @RestController
 @RequestMapping("/search")
 @RequiredArgsConstructor
+@Tag(name = "Search", description = "검색 관련 API")
 public class SearchController {
     private final SearchService searchService;
 

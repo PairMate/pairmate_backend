@@ -17,9 +17,9 @@ public class SearchService {
     private final MenuRepository menuRepository;
 
     public SearchResponse search(String query) {
-        // 이름 또는 카테고리로 가게 검색
+        // 이름 또는 카테고리로 가게 검색 (리포지토리 메서드 변경됨)
         List<StoreResponse> stores = storeRepository
-                .findByStoreNameContainingOrStoreCategory_StoreCategoryNameContaining(query, query)
+                .searchStores(query)
                 .stream().map(StoreResponse::fromEntity).toList();
 
         // 메뉴명 검색
@@ -27,7 +27,7 @@ public class SearchService {
                 .findByMenuNameContaining(query)
                 .stream().map(MenuResponse::fromEntity).toList();
 
-        // 단순히 매칭되는 카테고리 이름 목록만 추출 (원하면 별도 repository 메서드도 가능)
+        // 카테고리 이름 목록 추출
         List<String> categories = stores.stream()
                 .map(StoreResponse::getStoreCategoryName)
                 .distinct()
@@ -36,7 +36,7 @@ public class SearchService {
         return SearchResponse.builder()
                 .stores(stores)
                 .menus(menus)
-                .categories(categories)
+                .storeCategories(categories)
                 .build();
     }
 }

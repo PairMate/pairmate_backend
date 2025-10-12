@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -18,4 +19,6 @@ public class StoreRegisterRequest {
     private LocalTime storeCloseTime;
     private String storeContent;
     private Integer freePeople;
+
+    private List<MenuRequest> menus;
 }

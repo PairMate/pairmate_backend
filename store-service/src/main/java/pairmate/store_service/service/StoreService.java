@@ -60,6 +60,18 @@ public class StoreService {
                 .build();
 
         storeRepository.save(store);
+
+        // 메뉴 등록하기
+        if (request.getMenus() != null && !request.getMenus().isEmpty()) {
+            List<Menus> menus = request.getMenus().stream()
+                    .map(menuReq -> Menus.builder()
+                            .store(store)
+                            .menuName(menuReq.getMenuName())
+                            .menuPrice(menuReq.getMenuPrice())
+                            .build())
+                    .toList();
+            menuRepository.saveAll(menus);
+        }
     }
 
 }

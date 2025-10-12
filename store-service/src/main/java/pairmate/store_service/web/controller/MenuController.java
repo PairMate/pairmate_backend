@@ -1,5 +1,6 @@
 package pairmate.store_service.web.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/menus")
 @RequiredArgsConstructor
+@Tag(name = "Menu", description = "메뉴 관련 API")
 public class MenuController {
     private final MenuService menuService;
 

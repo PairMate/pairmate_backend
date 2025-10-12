@@ -10,5 +10,5 @@ import java.util.List;
 public class SearchResponse {
     private List<StoreResponse> stores;
     private List<MenuResponse> menus;
-    private List<String> categories;
+    private List<String> storeCategories;
 }

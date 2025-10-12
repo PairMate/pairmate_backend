@@ -17,13 +17,9 @@ public class MenuService {
 
     @Transactional(readOnly = true)
     public List<MenuResponse> getRandomMenus(int count) {
-        List<Menus> allMenus = menuRepository.findAll();
-        // 단순 랜덤 추출 (실서비스라면 쿼리로 처리하는 것이 성능상 더 적합)
-        return new Random().ints(0, allMenus.size())
-                .distinct()
-                .limit(count)
-                .mapToObj(allMenus::get)
-                .map(MenuResponse::fromEntity)
+        return menuRepository.findRandomMenus(count)
+                .stream().map(MenuResponse::fromEntity)
                 .toList();
     }
+
 }
