@@ -25,7 +25,8 @@ public class StoreController {
 
 
     // review-service에서 storeId 사용하려면 요러케 해야해요
-    @GetMapping("/{storeId}")
+    // 원래 internal을 안 붙이려고 했는데 그러면 아래에 가게 상세 조회 부분이랑 엔드포인트가 겹쳐서 수정합니다.
+    @GetMapping("/internal/{storeId}")
     public ResponseEntity<Stores> getStoreById(@PathVariable Long storeId) {
         return storeRepository.findById(storeId)
                 .map(ResponseEntity::ok)
