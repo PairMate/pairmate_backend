@@ -17,6 +17,7 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
 
     java {
         toolchain {
@@ -41,13 +42,7 @@ subprojects {
         testCompileOnly 'org.projectlombok:lombok:1.18.32'
         testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
-        // 공통 검증 → common-libs 에서는 제외
-        if (project.name != "common-libs") {
-            implementation 'org.springframework.boot:spring-boot-starter-validation'
-        }
-
-        // springdoc-openapi 의존성 추가
-        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
     }
 }
 

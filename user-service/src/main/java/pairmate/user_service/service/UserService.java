@@ -42,6 +42,12 @@ public class UserService {
                     log.warn("[USER] 회원가입 실패 - 중복된 로그인 ID={}", dto.getLoginId());
                     throw new CustomException(ErrorCode.DUPLICATE_LOGIN_ID);
                 });
+        // 중복 닉네임 체크
+        userRepository.findByNickname(dto.getNickName())
+                .ifPresent(u -> {
+                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 ID={}", dto.getNickName());
+                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
+                });
 
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
@@ -103,17 +109,17 @@ public class UserService {
      * 엑세스 토큰 재발급
      */
     @Transactional
-    public TokenDTO reissue(String refreshTokenValue) {
+    public TokenDTO reissue(String accessToken) {
         log.info("[AUTH] 토큰 재발급 요청");
 
         // 토큰 유효성 검사
-        if (!jwtProvider.validateToken(refreshTokenValue)) {
-            log.warn("[AUTH] 토큰 재발급 실패 - 유효하지 않은 RefreshToken");
-            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
+        if (!jwtProvider.validateToken(accessToken)) {
+            log.warn("[AUTH] 토큰 재발급 실패 - 유효하지 않은 AccessToken={}", accessToken);
+            throw new CustomException(ErrorCode.INVALID_TOKEN);
         }
 
         // Redis에서 RefreshToken 검증
-        RefreshToken stored = refreshTokenRepository.findByRefreshToken(refreshTokenValue)
+        RefreshToken stored = refreshTokenRepository.findByAccessToken(accessToken)
                 .orElseThrow(() -> {
                     log.warn("[AUTH] 토큰 재발급 실패 - Redis에 RefreshToken 없음");
                     return new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
@@ -145,8 +151,9 @@ public class UserService {
         return new TokenDTO(newAccessToken);
     }
 
-    @Transactional
-    public UserDTO.UserResponseDTO getCurrentUser(Users user) {
+    @Transactional(readOnly = true)
+    public UserDTO.UserResponseDTO getCurrentUser(Long userId) {
+        Users user = userRepository.findByUserId(userId);
         return new UserDTO.UserResponseDTO(user);
     }
 

@@ -7,7 +7,6 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.32/17d46b3e205515e1e8efd3ee4d57ce8018914163/lombok-1.18.32.jar" />
         </processorPath>
-        <module name="pairmate.common-libs.main" />
         <module name="pairmate.config-server.main" />
         <module name="pairmate.eureka-server.main" />
         <module name="pairmate.gateway-service.main" />
@@ -17,7 +16,6 @@
         <module name="pairmate.pay-service.main" />
         <module name="pay-service.pairmate.pay-service.test" />
         <module name="pairmate.store-service.main" />
-        <module name="pairmate.user-service.main" />
         <module name="review-service.pairmate.review-service.test" />
         <module name="pairmate.review-service.main" />
         <module name="common-libs.pairmate.common-libs.test" />
@@ -29,6 +27,7 @@
       <module name="event-service.pairmate.event-service.test" target="17" />
       <module name="pairmate.event-service" target="17" />
       <module name="pairmate.event-service.main" target="17" />
+      <module name="pairmate.event-service.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

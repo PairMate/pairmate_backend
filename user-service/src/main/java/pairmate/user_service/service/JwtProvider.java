@@ -24,8 +24,7 @@ public class JwtProvider {
 
     public String createAccessToken(Long userId, String loginId) {
         return Jwts.builder()
-                .setSubject("AccessToken")
-                .claim("userId", userId)
+                .setSubject(String.valueOf(userId))
                 .claim("loginId", loginId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRE))

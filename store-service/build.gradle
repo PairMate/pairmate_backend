@@ -52,11 +52,19 @@ dependencies {
     // Eureka Client
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+<<<<<<< HEAD
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+=======
     // Kafka Bus
     // implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
 
     // OpenFeign 의존성 추가
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+>>>>>>> origin/main
 }
 
 dependencyManagement {
