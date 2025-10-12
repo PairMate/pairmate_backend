@@ -1,6 +1,7 @@
 package pairmate.store_service.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping("/stores")
-// @Tag(name = "Stores", description = "식당 관련 API")    // 아직 스웨거 설정을 안해서 일단 tag만 미리 달아두겠습니다
+@Tag(name = "Store", description = "식당 관련 API")    // 아직 스웨거 설정을 안해서 일단 tag만 미리 달아두겠습니다
 @RequiredArgsConstructor
 public class StoreController {
     private final StoreService storeService;
@@ -44,13 +45,10 @@ public class StoreController {
 
     // 가게 상세 조회
     @GetMapping("/{storeId}")
-    @Operation(
-            summary = "가게 상세 조회",
-            description = "가게 세부 사항들을 확인할 수 있는 API 입니다.")
+    @Operation(summary = "가게 상세 조회", description = "가게 세부 사항을 확인합니다.")
     public StoreResponse getStoreDetail(@PathVariable Long storeId) {
         return storeService.getStoreDetail(storeId);
     }
-
 
     // 가게의 메뉴 목록 조회
     @Operation(
