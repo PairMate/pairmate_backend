@@ -1,6 +1,7 @@
 server:
   port: 8888
 
+# 이전 버전
 spring:
   application:
     name: config-server
@@ -9,7 +10,8 @@ spring:
       server:
         git:
           uri: https://github.com/PairMate/config-repo
-          default-label: main
+          # default-label: main
+          default-label: develop1
           search-paths:
             - .
           username: ${GIT_USERNAME}

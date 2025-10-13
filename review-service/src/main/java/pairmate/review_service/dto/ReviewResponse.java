@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public class ReviewResponse {
     private Long reviewId;
+    private Long userId;
     private Float starRating;
     private LocalDateTime visitDate;
     private String content;

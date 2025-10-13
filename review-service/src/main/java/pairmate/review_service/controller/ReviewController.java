@@ -1,16 +1,15 @@
 package pairmate.review_service.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pairmate.common_libs.exception.CustomException;
-import pairmate.common_libs.response.ErrorCode;
-import pairmate.review_service.service.ReviewService;
+import pairmate.common_libs.response.ApiResponse;
+import pairmate.common_libs.response.SuccessCode;
 import pairmate.review_service.dto.ReviewRequest;
 import pairmate.review_service.dto.ReviewResponse;
+import pairmate.review_service.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -19,63 +18,45 @@ import java.util.List;
 @RequestMapping("/reviews")
 @Tag(name = "Reviews", description = "음식점 후기 관련 API")
 public class ReviewController {
+
     private final ReviewService reviewService;
-    // private final UserService userService; // 로그인 유저 조회용 서비스
 
     @Operation(summary = "음식점 후기 목록 조회", description = "특정 음식점(storeId)에 작성된 모든 후기를 반환합니다.")
     @GetMapping("/store/{storeId}")
-    public ResponseEntity<List<ReviewResponse>> getReviews(
-            HttpServletRequest request,
-            @PathVariable Long storeId) {
-        // User user = userService.getLoginUser(request);
-        // return ResponseEntity.ok(reviewService.getReviewsByStoreId(storeId, user));
-        return ResponseEntity.ok(reviewService.getReviewsByStoreId(storeId));
+    public ApiResponse<List<ReviewResponse>> getReviewsByStoreId(@PathVariable Long storeId) {
+        List<ReviewResponse> reviews = reviewService.getReviewsByStoreId(storeId);
+        return ApiResponse.onSuccess(reviews, SuccessCode.OK);
     }
 
     @Operation(summary = "음식점 후기 작성", description = "로그인한 유저가 해당 음식점에 후기를 등록합니다.")
     @PostMapping
-    public ResponseEntity<Long> createReview(
-            HttpServletRequest request,
+    public ApiResponse<Long> createReview(
+            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @RequestParam Long storeId,
             @RequestBody ReviewRequest dto) {
-        // User user = userService.getLoginUser(request);
-        // Long reviewId = reviewService.createReview(storeId, user, dto);
-        Long reviewId = reviewService.createReview(dto, storeId);
-        return ResponseEntity.ok(reviewId);
+        Long reviewId = reviewService.createReview(dto, storeId, userId);
+        // 새로운 리소스가 생성되었으므로 HTTP 201 Created 상태에 해당하는 SuccessCode.CREATED를 사용합니다.
+        return ApiResponse.onSuccess(reviewId, SuccessCode.CREATED);
     }
 
     @Operation(summary = "음식점 후기 수정", description = "로그인한 유저가 본인이 작성한 후기를 수정합니다.")
     @PutMapping("/{reviewId}")
-    public ResponseEntity<Void> updateReview(
-            HttpServletRequest request,
+    public ApiResponse<Void> updateReview(
+            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @PathVariable Long reviewId,
             @RequestBody ReviewRequest dto) {
-        // User user = userService.getLoginUser(request);
-        // reviewService.updateReview(reviewId, user, dto);
-        reviewService.updateReview(reviewId, dto);
-        return ResponseEntity.ok().build();
+        reviewService.updateReview(reviewId, dto, userId);
+        // 별도의 데이터 반환이 없으므로 data 부분에 null을 전달하고 성공 코드(OK)를 반환합니다.
+        return ApiResponse.onSuccess(null, SuccessCode.OK);
     }
 
-    @Operation(
-            summary = "음식점 후기 삭제",
-            description = "로그인한 유저가 본인이 작성한 후기를 삭제합니다.")
+    @Operation(summary = "음식점 후기 삭제", description = "로그인한 유저가 본인이 작성한 후기를 삭제합니다.")
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<Void> deleteReview(
-            HttpServletRequest request,
+    public ApiResponse<Void> deleteReview(
+            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @PathVariable Long reviewId) {
-        // User user = userService.getLoginUser(request);
-        // reviewService.deleteReview(reviewId, user);
-        reviewService.deleteReview(reviewId);
-        return ResponseEntity.ok().build();
-    }
-
-    /**
-     * Authorization 헤더에서 "Bearer " 제거
-     */
-    private String extractTokenFromHeader(String header) {
-        if (header == null || !header.startsWith("Bearer ")) {
-            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
-        }
-        return header.substring(7);
+        reviewService.deleteReview(reviewId, userId);
+        // 별도의 데이터 반환이 없으므로 data 부분에 null을 전달하고 성공 코드(OK)를 반환합니다.
+        return ApiResponse.onSuccess(null, SuccessCode.OK);
     }
 }
