@@ -1,9 +1,11 @@
 package pairmate.store_service.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 import pairmate.store_service.domain.common.BaseEntity;
 
 import java.time.LocalTime;
@@ -43,9 +45,13 @@ public class Stores extends BaseEntity {
     @Column(name = "store_type", length = 200, nullable = true)
     private String storeType;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // JSON 변환 시 포맷 지정
     @Column(name = "store_open_time", nullable = false)
     private LocalTime storeOpenTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // JSON 변환 시 포맷 지정
     @Column(name = "store_close_time", nullable = false)
     private LocalTime storeCloseTime;
 

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pairmate.common_libs.exception.CustomException;
+import pairmate.common_libs.response.ErrorCode;
 import pairmate.store_service.domain.Stores;
 import pairmate.store_service.domain.Menus;
 import pairmate.store_service.domain.StoreCategories;
@@ -33,7 +35,7 @@ public class StoreService {
     @Transactional(readOnly = true)
     public StoreResponse getStoreDetail(Long storeId) {
         Stores store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new IllegalArgumentException("Store not found"));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "store not found"));
         return StoreResponse.fromEntity(store);
     }
 
