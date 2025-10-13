@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "pairmate")
 @EnableJpaAuditing
 @EnableFeignClients(basePackages = "pairmate.user_service")
 public class UserServiceApplication {

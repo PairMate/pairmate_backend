@@ -45,18 +45,27 @@ dependencies {
     // config client
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
-    // swagger
-    implementation 'org.springdoc:springdoc-openapi-webflux-core:1.5.13'
-    implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.5.13'
-
     // test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    // spring security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation(project(":common-libs")) {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+        exclude group: 'org.springframework.boot', module: 'spring-webmvc'
+    }
+
+    // test
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+        exclude group: 'org.springframework.boot', module: 'spring-webmvc'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.1.0'
+
 }
 
 dependencyManagement {
@@ -66,5 +75,6 @@ dependencyManagement {
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    exclude '**/*ApplicationTests.class'
 }

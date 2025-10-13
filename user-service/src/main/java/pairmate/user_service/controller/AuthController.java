@@ -1,5 +1,6 @@
 package pairmate.user_service.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import pairmate.common_libs.response.ApiResponse;
 import pairmate.common_libs.response.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import pairmate.common_libs.exception.CustomException;
 import pairmate.common_libs.response.ErrorCode;
 import pairmate.common_libs.response.SuccessCode;
-import pairmate.user_service.domain.Users;
 import pairmate.user_service.dto.LoginDTO;
 import pairmate.user_service.dto.SignUpDTO;
 import pairmate.user_service.dto.TokenDTO;
@@ -24,7 +24,8 @@ import pairmate.user_service.service.UserService;
 
 @Tag(name = "User API", description = "유저 인증 관련 API")
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
+@Slf4j
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -41,7 +42,6 @@ public class AuthController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "409", description = "이미 존재하는 로그인 ID")
     })
     public ApiResponse<UserDTO.UserResponseDTO> signUp(@Valid @RequestBody SignUpDTO dto) {
-         userService.signUp(dto);
         return ApiResponse.onSuccess(
                 userService.signUp(dto), SuccessCode.CREATED
         );
@@ -74,10 +74,27 @@ public class AuthController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "INVALID_REFRESH_TOKEN - 유효하지 않거나 만료된 RefreshToken")
     })
     public ApiResponse<TokenDTO> reissue(@RequestHeader("Authorization") String authorizationHeader) {
-        String refreshToken = extractTokenFromHeader(authorizationHeader);
-        TokenDTO response = userService.reissue(refreshToken);
+        String accessToken = extractTokenFromHeader(authorizationHeader);
+        TokenDTO response = userService.reissue(accessToken);
         return ApiResponse.onSuccess(response, SuccessCode.OK);
     }
+
+    /**
+     * 현재 로그인한 사용자 조회
+     */
+    @GetMapping("/me")
+    @Operation(summary = "현재 사용자 조회", description = "인증된 사용자의 정보를 반환합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "조회 성공",
+                    content = @Content(schema = @Schema(implementation = UserDTO.UserResponseDTO.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "UNAUTHORIZED - 인증 실패")
+    })
+    public ApiResponse<UserDTO.UserResponseDTO> getCurrentUser(@Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId) {
+        UserDTO.UserResponseDTO response = userService.getCurrentUser(userId);
+        return ApiResponse.onSuccess(response, SuccessCode.OK);
+    }
+
+
 
     /**
      * Authorization 헤더에서 "Bearer " 제거
