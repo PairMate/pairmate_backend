@@ -3,6 +3,8 @@ package pairmate.review_service.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pairmate.common_libs.exception.CustomException;
+import pairmate.common_libs.response.ErrorCode;
 import pairmate.review_service.service.ReviewService;
 import pairmate.review_service.dto.ReviewRequest;
 import pairmate.review_service.dto.ReviewResponse;
@@ -65,5 +67,15 @@ public class ReviewController {
         // reviewService.deleteReview(reviewId, user);
         reviewService.deleteReview(reviewId);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Authorization 헤더에서 "Bearer " 제거
+     */
+    private String extractTokenFromHeader(String header) {
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
+        }
+        return header.substring(7);
     }
 }

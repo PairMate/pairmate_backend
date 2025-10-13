@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import pairmate.common_libs.exception.CustomException;
+import pairmate.common_libs.response.ErrorCode;
 import pairmate.store_service.domain.Stores;
 import pairmate.store_service.repository.StoreRepository;
 import pairmate.store_service.service.StoreService;
@@ -70,5 +72,16 @@ public class StoreController {
         storeService.registerStore(request);
         return ResponseEntity.ok().build();
     }
+
+    /**
+     * Authorization 헤더에서 "Bearer " 제거
+     */
+    private String extractTokenFromHeader(String header) {
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
+        }
+        return header.substring(7);
+    }
+
 
 }

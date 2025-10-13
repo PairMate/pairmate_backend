@@ -1,6 +1,7 @@
 package pairmate.store_service.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pairmate.store_service.repository.StoreRepository;
 import pairmate.store_service.repository.MenuRepository;
@@ -10,6 +11,7 @@ import pairmate.store_service.dto.MenuResponse;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SearchService {
