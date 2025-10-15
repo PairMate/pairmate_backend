@@ -1,6 +1,9 @@
-package pairmate.review_service.web.dto;
+package pairmate.review_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

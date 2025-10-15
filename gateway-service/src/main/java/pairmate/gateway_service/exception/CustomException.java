@@ -1,6 +1,7 @@
 package pairmate.gateway_service.exception;
 
 import lombok.Getter;
+import pairmate.gateway_service.response.BaseCode;
 
 @Getter
 public class CustomException extends RuntimeException {

@@ -15,6 +15,7 @@ public enum ErrorCode implements BaseCode {
     INVALID_DATE(HttpStatus.BAD_REQUEST, "DATE-400", "유효하지 않은 날짜입니다."),
     INVALID_FORMAT(HttpStatus.BAD_REQUEST, "FORMAT-400", "형식이 올바르지 않습니다."),
     JSON_PARSE_ERROR(HttpStatus.BAD_REQUEST, "COMMON-400", "JSON 파싱에 실패했습니다."),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "COMMON-404", "요청한 리소스를 찾을 수 없습니다."),
 
     // AUTH 에러
     TOKEN_MISSING(HttpStatus.UNAUTHORIZED, "AUTH-401", "인증 토큰이 존재하지 않습니다."),
@@ -31,6 +32,7 @@ public enum ErrorCode implements BaseCode {
     LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "AUTH-401", "로그인에 실패했습니다."),
     TOKEN_REISSUE_FAILED(HttpStatus.UNAUTHORIZED, "AUTH-401", "토큰 재발급에 실패했습니다."),
     ALREADY_LOGGED_OUT(HttpStatus.UNAUTHORIZED, "AUTH-401", "이미 로그아웃된 토큰입니다."),
+    FORBIDDEN(HttpStatus.FORBIDDEN, "AUTH-403", "요청에 대한 권한이 없습니다."),
 
 
     // USER 에러

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-252.26199.169">
-    <data-source name="pairmate_db@localhost" uuid="8566220b-0c1e-45b1-b9f1-93aeaf9caa21">
+  <component name="dataSourceStorageLocal" created-in="IU-241.18034.62">
+    <data-source name="pairmate_db@localhost" uuid="3a648fa5-0c83-44f3-9399-35a3197c3d26">
       <database-info product="MySQL" version="8.3.0" jdbc-version="4.2" driver-name="Amazon Web Services (AWS) JDBC Driver for MySQL" driver-version="aws-mysql-connector-java-1.1.14 (Revision: 4629bb4ea3ade12a811483453fafcb8fc2a66bb5)" dbms="MYSQL" exact-version="8.3.0" exact-driver-version="1.1">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
+        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="@" />
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="review_service_db" />
+            <name qname="store_service_db" />
+            <name qname="user_service_db" />
+          </node>
         </introspection-scope>
       </schema-mapping>
-    </data-source>
-    <data-source name="HSQLDB (Local)" uuid="d11d7ed7-e0c8-4c43-be16-e88a57d01442">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="HSQLDB" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping />
     </data-source>
   </component>
 </project>

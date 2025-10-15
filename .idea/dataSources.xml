@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="pairmate_db@localhost" uuid="8566220b-0c1e-45b1-b9f1-93aeaf9caa21">
+    <data-source source="LOCAL" name="pairmate_db@localhost" uuid="3a648fa5-0c83-44f3-9399-35a3197c3d26">
       <driver-ref>mysql_aurora_aws</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>software.aws.rds.jdbc.mysql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql:aws://localhost:3306/pairmate_db</jdbc-url>
+      <jdbc-url>jdbc:mysql:aws://localhost:3306/pay_service_db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
         <property name="com.intellij.clouds.kubernetes.db.container.port" />
       </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="HSQLDB (Local)" uuid="d11d7ed7-e0c8-4c43-be16-e88a57d01442">
-      <driver-ref>hsqldb.local</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.hsqldb.jdbc.JDBCDriver</jdbc-driver>
-      <jdbc-url>jdbc:mysql:file:localhost/gamodb;ifexists=true</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

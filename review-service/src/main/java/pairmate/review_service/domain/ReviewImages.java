@@ -13,7 +13,7 @@ import pairmate.review_service.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "reviewImages")
+@Table(name = "review_images")
 public class ReviewImages extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,6 @@ public class ReviewImages extends BaseEntity {
     @Column(name = "review_image_url", nullable = false, length = 100)
     private String reviewImageUrl;
 
-    @Column(name = "order", nullable = false)
-    private Integer order;
+    @Column(name = "sequence", nullable = false)
+    private Integer sequence;
 }

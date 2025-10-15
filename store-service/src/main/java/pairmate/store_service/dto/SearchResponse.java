@@ -1,4 +1,4 @@
-package pairmate.store_service.web.dto;
+package pairmate.store_service.dto;
 
 import lombok.Builder;
 import lombok.Getter;
