@@ -3,6 +3,8 @@ package pairmate.review_service.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pairmate.common_libs.exception.CustomException;
+import pairmate.common_libs.response.ErrorCode;
 import pairmate.review_service.domain.ReviewImages;
 import pairmate.review_service.domain.Reviews;
 import pairmate.review_service.dto.ReviewRequest;
@@ -30,7 +32,7 @@ public class ReviewService {
     public List<ReviewResponse> getReviewsByStoreId(Long storeId) {
         StoreResponse store = storeClient.getStoreById(storeId);
         if (store == null) {
-            throw new IllegalArgumentException("해당 storeId에 해당하는 음식점이 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다.");
         }
 
         return reviewRepository.findByStoreId(storeId)
@@ -58,7 +60,7 @@ public class ReviewService {
     public ReviewResponse createReview(ReviewRequest dto, Long storeId, Long userId) {
         StoreResponse store = storeClient.getStoreById(storeId);
         if (store == null) {
-            throw new IllegalArgumentException("해당 음식점이 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다.");
         }
 
         Reviews review = Reviews.builder()
@@ -91,7 +93,7 @@ public class ReviewService {
     @Transactional
     public void updateReview(Long reviewId, ReviewRequest dto, Long userId) {
         Reviews review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "해당 리뷰를 찾을 수 없습니다."));
 
         if (!review.getUserId().equals(userId)) {
             throw new IllegalStateException("본인이 작성한 리뷰만 수정할 수 있습니다.");
@@ -108,7 +110,7 @@ public class ReviewService {
     @Transactional
     public void deleteReview(Long reviewId, Long userId) {
         Reviews review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 리뷰를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "해당 리뷰를 찾을 수 없습니다."));
 
         // 유저ㅓ 권한 확인
         if (!review.getUserId().equals(userId)) {

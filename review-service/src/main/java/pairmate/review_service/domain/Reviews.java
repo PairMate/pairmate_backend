@@ -39,7 +39,7 @@ public class Reviews extends BaseEntity {
     private Float starRating;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // JSON 변환 시 포맷 지정
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "visit_date", nullable = false)
     private LocalDateTime visitDate;
 
@@ -51,7 +51,8 @@ public class Reviews extends BaseEntity {
         this.starRating = starRating;
     }
 
-    public void setVisitDate(LocalDateTime visitDate) {
+    public void setVisitDate(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+                             @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime visitDate) {
         this.visitDate = visitDate;
     }
 
@@ -60,7 +61,8 @@ public class Reviews extends BaseEntity {
     }
 
     // update 메서드도 활용 가능
-    public void update(Float starRating, LocalDateTime visitDate, String content) {
+    public void update(Float starRating, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime visitDate, String content) {
         this.starRating = starRating;
         this.visitDate = visitDate;
         this.content = content;

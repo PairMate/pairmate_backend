@@ -8,8 +8,8 @@ import pairmate.store_service.domain.Stores;
 import java.util.List;
 
 public interface StoreRepository extends JpaRepository<Stores, Long> {
-    // 추천 기준은 상황에 따라 수정할게요
-    @Query("SELECT s FROM Stores s WHERE s.freePeople >= 4")
+    // freePeople이 많은 순서로 모든 가게를 정렬하여 조회
+    @Query("SELECT s FROM Stores s ORDER BY s.freePeople DESC")
     List<Stores> findRecommended();
 
    @Query("SELECT s FROM Stores s " +

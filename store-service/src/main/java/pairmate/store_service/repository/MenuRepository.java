@@ -7,7 +7,7 @@ import pairmate.store_service.domain.Menus;
 import java.util.List;
 
 public interface MenuRepository extends JpaRepository<Menus, Long> {
-    List<Menus> findByStore_StoreId(Long storeId);
+    List<Menus> findByStoreStoreId(Long storeId);
 
     @Query(value = "SELECT * FROM menus ORDER BY RAND() LIMIT ?1", nativeQuery = true)
     List<Menus> findRandomMenus(int count);

@@ -1,6 +1,7 @@
 package pairmate.store_service.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -24,6 +25,10 @@ public class Stores extends BaseEntity {
     @Column(name = "store_id", nullable = false)
     private Long storeId;
 
+    // 유저ID를 임시로(?) 저장해 두기 위한 컬럼이에요
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
     // 가게 카테고리 FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_category_id", nullable = false)
@@ -33,6 +38,7 @@ public class Stores extends BaseEntity {
     private String storeName;
 
     @Column(name = "store_contact_number", length = 50)
+    @Schema(name = "가게 전화 번호")
     private String storeContactNumber;
 
     @Column(name = "store_main_image_url", length = 100)
@@ -51,7 +57,7 @@ public class Stores extends BaseEntity {
     private LocalTime storeOpenTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // JSON 변환 시 포맷 지정
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "store_close_time", nullable = false)
     private LocalTime storeCloseTime;
 

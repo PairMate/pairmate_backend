@@ -1,6 +1,10 @@
 server:
   port: 8083
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB       # 개별 파일의 최대 크기 (기본값 1MB)
+      max-request-size: 100MB   # 한 번의 요청에 포함된 모든 파일의 총 크기 (기본값 10MB)
   application:
     name: store-service
   config:
