@@ -33,7 +33,7 @@ public class StoreService {
     @Transactional(readOnly = true)
     public StoreResponse getStoreByIdInternal(Long storeId) {
         Stores store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         return StoreResponse.fromEntity(store);
     }
 
@@ -46,14 +46,14 @@ public class StoreService {
     @Transactional(readOnly = true)
     public StoreResponse getStoreDetail(Long storeId) {
         Stores store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         return StoreResponse.fromEntity(store);
     }
 
     @Transactional(readOnly = true)
     public List<MenuResponse> getStoreMenus(Long storeId) {
         if (!storeRepository.existsById(storeId)) {
-            throw new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.STORE_NOT_FOUND);
         }
         return menuRepository.findByStoreStoreId(storeId)
                 .stream().map(MenuResponse::fromEntity).toList();
@@ -67,7 +67,7 @@ public class StoreService {
         }
 
         StoreCategories category = storeCategoryRepository.findById(request.getStoreCategoryId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
 
         Stores store = Stores.builder()
                 .userId(userId)
