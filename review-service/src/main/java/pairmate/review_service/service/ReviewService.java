@@ -9,6 +9,7 @@ import pairmate.review_service.domain.ReviewImages;
 import pairmate.review_service.domain.Reviews;
 import pairmate.review_service.dto.ReviewRequest;
 import pairmate.review_service.dto.ReviewResponse;
+import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.review_service.feign.StoreClient;
 import pairmate.review_service.feign.StoreResponse;
 import pairmate.review_service.repository.ReviewImageRepository;
@@ -120,5 +121,10 @@ public class ReviewService {
         // 연관된 이미지를 먼저 삭제 후, 리뷰를 삭제합니다.
         reviewImageRepository.deleteAll(reviewImageRepository.findByReview_ReviewId(reviewId));
         reviewRepository.delete(review);
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewStatsDto getReviewStatsByStoreId(Long storeId) {
+        return reviewRepository.findReviewStatsByStoreId(storeId);
     }
 }

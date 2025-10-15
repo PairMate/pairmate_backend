@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import pairmate.common_libs.exception.CustomException;
+import pairmate.common_libs.response.ApiResponse;
 import pairmate.common_libs.response.ErrorCode;
+import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.store_service.domain.Menus;
 import pairmate.store_service.domain.StoreCategories;
 import pairmate.store_service.domain.Stores;
@@ -14,11 +16,13 @@ import pairmate.store_service.dto.MenuRequest;
 import pairmate.store_service.dto.MenuResponse;
 import pairmate.store_service.dto.StoreRegisterRequest;
 import pairmate.store_service.dto.StoreResponse;
+import pairmate.store_service.feign.ReviewClient;
 import pairmate.store_service.repository.MenuRepository;
 import pairmate.store_service.repository.StoreCategoryRepository;
 import pairmate.store_service.repository.StoreRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,7 +32,8 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;
     private final StoreCategoryRepository storeCategoryRepository;
-    // private final S3UploadService s3UploadService;
+    private final ReviewClient reviewClient;
+    // private final S3UploadService s3UploadService;           // 안 쓰는 거 같
 
     @Transactional(readOnly = true)
     public StoreResponse getStoreByIdInternal(Long storeId) {
@@ -39,8 +44,20 @@ public class StoreService {
 
     @Transactional(readOnly = true)
     public List<StoreResponse> getRecommendedStores() {
-        return storeRepository.findRecommended()
-                .stream().map(StoreResponse::fromEntity).toList();
+        List<Stores> stores = storeRepository.findRecommended();
+
+        return stores.stream().map(store -> {
+            ReviewStatsDto stats;
+            try {
+                ApiResponse<ReviewStatsDto> response = reviewClient.getReviewStatsByStoreId(store.getStoreId());
+                stats = response.getResult();
+            } catch (Exception e) {
+                stats = new ReviewStatsDto(0.0, 0L);
+            }
+
+            return StoreResponse.from(store, stats);
+        }).collect(Collectors.toList());
+
     }
 
     @Transactional(readOnly = true)
