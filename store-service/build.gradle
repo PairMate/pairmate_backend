@@ -63,6 +63,10 @@ dependencies {
 
     // OpenFeign 의존성 추가
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // hibernate-spatial 의존성 추가 -> 공간 타입 사용하기 위해서 추가함
+    implementation 'org.hibernate.orm:hibernate-spatial:6.4.4.Final'
+    implementation 'org.locationtech.jts:jts-core:1.19.0'
 }
 
 dependencyManagement {

@@ -3,6 +3,7 @@ package pairmate.store_service.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.locationtech.jts.geom.Point;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
@@ -25,8 +26,14 @@ public class StoreRegisterRequest {
     @Schema(description = "가게 대표 이미지 URL", example = "https://example.com/image.jpg")
     private String storeMainImageUrl;
 
-    @Schema(description = "가게 주소", example = "서울시 강남구 테헤란로 123")
-    private String storeLocate;
+//    @Schema(description = "가게 주소", example = "서울시 강남구 테헤란로 123")
+//    private Point storeLocate;
+
+    @Schema(description = "가게 위치 - 위도", example = "37.5665")
+    private Double latitude;
+
+    @Schema(description = "가게 위치 - 경도", example = "126.9780")
+    private Double longitude;
 
     @Schema(description = "가게 타입 (예: 한식, 양식, 카페)", example = "양식")
     private String storeType;
