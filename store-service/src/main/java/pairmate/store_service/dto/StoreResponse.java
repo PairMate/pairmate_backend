@@ -1,10 +1,12 @@
 package pairmate.store_service.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.store_service.domain.Stores;
 import java.time.LocalTime;
+import org.locationtech.jts.geom.Point;
 
 @Getter
 @Builder
@@ -14,7 +16,12 @@ public class StoreResponse {
     private String storeCategoryName;
     private String storeContactNumber;
     private String storeMainImageUrl;
-    private String storeLocate;
+
+//    private Point storeLocate;
+
+    private Double latitude;
+    private Double longitude;
+
     private String storeType;
     private LocalTime storeOpenTime;
     private LocalTime storeCloseTime;
@@ -31,7 +38,8 @@ public class StoreResponse {
                 .storeCategoryName(entity.getStoreCategory().getStoreCategoryName())
                 .storeContactNumber(entity.getStoreContactNumber())
                 .storeMainImageUrl(entity.getStoreMainImageUrl())
-                .storeLocate(entity.getStoreLocate())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLatitude())
                 .storeType(entity.getStoreType())
                 .storeOpenTime(entity.getStoreOpenTime())
                 .storeCloseTime(entity.getStoreCloseTime())
@@ -47,7 +55,8 @@ public class StoreResponse {
                 .storeCategoryName(entity.getStoreCategory().getStoreCategoryName())
                 .storeContactNumber(entity.getStoreContactNumber())
                 .storeMainImageUrl(entity.getStoreMainImageUrl())
-                .storeLocate(entity.getStoreLocate())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLatitude())
                 .storeType(entity.getStoreType())
                 .storeOpenTime(entity.getStoreOpenTime())
                 .storeCloseTime(entity.getStoreCloseTime())

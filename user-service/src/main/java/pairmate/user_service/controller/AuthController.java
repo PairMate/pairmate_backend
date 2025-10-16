@@ -1,5 +1,6 @@
 package pairmate.user_service.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
 import pairmate.common_libs.response.ApiResponse;
 import pairmate.common_libs.response.*;
@@ -30,6 +31,14 @@ import pairmate.user_service.service.UserService;
 public class AuthController {
 
     private final UserService userService;
+
+    @Hidden // 서비스 간 통신용이므로 Swagger 문서에서 숨깁니다.
+    @Operation(summary = "유저 정보 조회 (내부 통신용)")
+    @GetMapping("/internal/{userId}")
+    public ApiResponse<UserDTO.UserResponseDTO> getUserByIdInternal(@PathVariable Long userId) {
+        UserDTO.UserResponseDTO user = userService.getUserInfoInternal(userId);
+        return ApiResponse.onSuccess(user, SuccessCode.OK);
+    }
 
     /**
      *  회원가입

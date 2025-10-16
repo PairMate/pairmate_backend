@@ -29,10 +29,12 @@ public class UserDTO {
     @AllArgsConstructor
     public static class UserResponseDTO {
         private Long userId;
+        private String userRole;
         private String nickname;
         private String loginId;
         public UserResponseDTO(Users user) {
             this.userId = user.getUserId();
+            this.userRole = user.getUserRole();
             this.nickname = user.getNickname();
             this.loginId = user.getLoginId();
         }

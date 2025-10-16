@@ -12,14 +12,15 @@ import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.store_service.domain.Menus;
 import pairmate.store_service.domain.StoreCategories;
 import pairmate.store_service.domain.Stores;
-import pairmate.store_service.dto.MenuRequest;
-import pairmate.store_service.dto.MenuResponse;
-import pairmate.store_service.dto.StoreRegisterRequest;
-import pairmate.store_service.dto.StoreResponse;
+import pairmate.store_service.dto.*;
 import pairmate.store_service.feign.ReviewClient;
+import pairmate.store_service.feign.UserClient;
 import pairmate.store_service.repository.MenuRepository;
 import pairmate.store_service.repository.StoreCategoryRepository;
 import pairmate.store_service.repository.StoreRepository;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class StoreService {
     private final MenuRepository menuRepository;
     private final StoreCategoryRepository storeCategoryRepository;
     private final ReviewClient reviewClient;
+    private final UserClient userClient;
     // private final S3UploadService s3UploadService;           // 안 쓰는 거 같
 
     @Transactional(readOnly = true)
@@ -64,7 +66,16 @@ public class StoreService {
     public StoreResponse getStoreDetail(Long storeId) {
         Stores store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
-        return StoreResponse.fromEntity(store);
+
+        ReviewStatsDto stats;
+        try {
+            ApiResponse<ReviewStatsDto> response = reviewClient.getReviewStatsByStoreId(store.getStoreId());
+            stats = response.getResult();
+        } catch (Exception e) {
+            stats = new ReviewStatsDto(0.0, 0L);
+        }
+
+        return StoreResponse.from(store, stats);
     }
 
     @Transactional(readOnly = true)
@@ -77,14 +88,45 @@ public class StoreService {
     }
 
     @Transactional
-    public Long registerStore(StoreRegisterRequest request, MultipartFile storeImage, Long userId) {
+        public Long registerStore(StoreRegisterRequest request, MultipartFile storeImage, Long userId) {
+
+            ApiResponse<UserResponseDto> userResponse;
+            try {
+                userResponse = userClient.getUserById(userId);
+            } catch (Exception e) {
+
+                throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 정보 조회에 실패했습니다.");
+            }
+
+            UserResponseDto user = userResponse.getResult();
+
+            if (user == null) {
+                throw new CustomException(ErrorCode.USER_NOT_FOUND);
+            }
+            if (!"ADMIN".equals(user.getUserRole() )) {
+                throw new CustomException(ErrorCode.FORBIDDEN);
+            }
+
+        if (request.getStoreOpenTime() != null && request.getStoreCloseTime() != null &&
+                request.getStoreCloseTime().isBefore(request.getStoreOpenTime())) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST, "영업 종료 시간은 시작 시간보다 빠를 수 없습니다.");
+        }
+
+        // 이미지 처리
         String imageUrl = null;
         if (storeImage != null && !storeImage.isEmpty()) {
-            imageUrl = "https://storeImages/" + storeImage.getOriginalFilename(); // 임시 URL
+            // TODO: S3 등 외부 스토리지에 업로드하는 로직 구현 필요
+            imageUrl = "https://example.com/images/" + storeImage.getOriginalFilename();
         }
 
         StoreCategories category = storeCategoryRepository.findById(request.getStoreCategoryId())
                 .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = null;
+        if (request.getLatitude() != null && request.getLongitude() != null) {
+            point = geometryFactory.createPoint(new Coordinate(request.getLongitude(), request.getLatitude()));
+        }
 
         Stores store = Stores.builder()
                 .userId(userId)
@@ -92,7 +134,8 @@ public class StoreService {
                 .storeName(request.getStoreName())
                 .storeContactNumber(request.getStoreContactNumber())
                 .storeMainImageUrl(imageUrl)
-                .storeLocate(request.getStoreLocate())
+                .longitude(request.getLongitude())
+                .latitude(request.getLatitude())
                 .storeType(request.getStoreType())
                 .storeOpenTime(request.getStoreOpenTime())
                 .storeCloseTime(request.getStoreCloseTime())
