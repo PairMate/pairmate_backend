@@ -1,4 +1,6 @@
-# test 환경
+######################################
+#  TEST 환경
+######################################
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -41,7 +43,12 @@ spec:
                   name: review-db-secret
                   key: DB_PASSWORD
             - name: MYSQL_DATABASE
-              value: review-db
+              value: reviewdb
+            - name: TZ
+              value: "Asia/Seoul"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
           volumeMounts:
             - name: review-db-storage
               mountPath: /var/lib/mysql
@@ -63,6 +70,9 @@ spec:
       targetPort: 3306
   clusterIP: None
 ---
+######################################
+# PROD 환경
+######################################
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -105,7 +115,12 @@ spec:
                   name: review-db-secret
                   key: DB_PASSWORD
             - name: MYSQL_DATABASE
-              value: review_db_prod
+              value: reviewdb
+            - name: TZ
+              value: "Asia/Seoul"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
           volumeMounts:
             - name: review-db-storage
               mountPath: /var/lib/mysql

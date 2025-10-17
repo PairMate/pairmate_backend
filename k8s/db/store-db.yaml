@@ -1,0 +1,114 @@
+######################################
+#  TEST 환경 - STORE DB
+######################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: store-db-pvc
+  namespace: pairmate-test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ncloud-block-storage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-db
+  namespace: pairmate-test
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: store-db
+  template:
+    metadata:
+      labels:
+        app: store-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: store-db-secret
+                  key: DB_PASSWORD
+            - name: MYSQL_DATABASE
+              value: storedb
+            - name: TZ
+              value: "Asia/Seoul"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+          volumeMounts:
+            - name: store-db-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: store-db-storage
+          persistentVolumeClaim:
+            claimName: store-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-db
+  namespace: pairmate-test
+spec:
+  selector:
+    app: store-db
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None
+---
+######################################
+#  PROD 환경 - STORE DB
+######################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: store-db-pvc
+  namespace: pairmate-prod
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ncloud-block-storage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-db
+  namespace: pairmate-prod
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: store-db
+  template:
+    metadata:
+      labels:
+        app: store-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
