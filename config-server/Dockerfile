@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y tzdata && \
     apt-get clean
 
 COPY --from=build /app/build/libs/*.jar app.jar
-EXPOSE 8083
+EXPOSE 8888
 
 # JVM 타임존 설정 추가
 ENTRYPOINT ["java", "-Duser.timezone=Asia/Seoul", "-jar", "app.jar"]

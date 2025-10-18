@@ -1,0 +1,192 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-service
+  namespace: pairmate-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pay-service
+  template:
+    metadata:
+      labels:
+        app: pay-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      initContainers:
+        # Config Server, Eureka, DB가 준비될 때까지 대기
+        - name: wait-for-config
+          image: busybox
+          command: ['sh', '-c', 'until nc -z config-server 8888; do echo waiting config; sleep 3; done;']
+        - name: wait-for-eureka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -z pay-db 3306; do echo waiting db; sleep 3; done;']
+
+      containers:
+        - name: pay-service
+          image: kr.ncr.ntruss.com/pairmate-registry/pay-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+
+          envFrom:
+            - configMapRef:
+                name: global-config
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: pay-db-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pay-db-secret
+                  key: DB_PASSWORD
+            - name: PG_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pay-pg-secret
+                  key: PG_API_KEY
+            - name: PG_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: pay-pg-secret
+                  key: PG_SECRET
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - >
+                  nc -z pay-db 3306 &&
+                  nc -z config-server 8888 &&
+                  nc -z eureka-server 8761 &&
+                  curl -f http://localhost:8080/actuator/health
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            failureThreshold: 5
+
+          # 활성 상태 프로브 (프로세스 응답 확인)
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8083
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            failureThreshold: 3
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pay-service
+  namespace: pairmate-prod
+spec:
+  selector:
+    app: pay-service
+  ports:
+    - port: 8083
+      targetPort: 8083
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-service
+  namespace: pairmate-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pay-service
+  template:
+    metadata:
+      labels:
+        app: pay-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      initContainers:
+        # Config Server, Eureka, DB가 준비될 때까지 대기
+        - name: wait-for-config
+          image: busybox
+          command: ['sh', '-c', 'until nc -z config-server 8888; do echo waiting config; sleep 3; done;']
+        - name: wait-for-eureka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -z pay-db 3306; do echo waiting db; sleep 3; done;']
+
+      containers:
+        - name: pay-service
+          image: kr.ncr.ntruss.com/pairmate-registry/pay-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+
+          envFrom:
+            - configMapRef:
+                name: global-config
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: pay-db-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pay-db-secret
+                  key: DB_PASSWORD
+            - name: PG_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pay-pg-secret
+                  key: PG_API_KEY
+            - name: PG_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: pay-pg-secret
+                  key: PG_SECRET
+
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - >
+                  nc -z pay-db 3306 &&
+                  nc -z config-server 8888 &&
+                  nc -z eureka-server 8761 &&
+                  curl -f http://localhost:8080/actuator/health
+            initialDelaySeconds: 45
+            periodSeconds: 10
+            failureThreshold: 5
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8083
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pay-service
+  namespace: pairmate-test
+spec:
+  selector:
+    app: pay-service
+  ports:
+    - port: 8083
+      targetPort: 8083
+  type: ClusterIP

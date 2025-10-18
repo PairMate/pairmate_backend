@@ -1,0 +1,123 @@
+# =============
+# config - prod
+# =============
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  namespace: pairmate-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: config-server
+          image: kr.ncr.ntruss.com/pairmate-registry/config-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8888
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            failureThreshold: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8888
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            failureThreshold: 3
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  namespace: pairmate-prod
+spec:
+  selector:
+    app: config-server
+  ports:
+    - port: 8888
+      targetPort: 8888
+  type: ClusterIP
+---
+
+# =============
+# config - test
+# =============
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  namespace: pairmate-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: config-server
+          image: kr.ncr.ntruss.com/pairmate-registry/config-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8888
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            failureThreshold: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8888
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8888
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  namespace: pairmate-test
+spec:
+  selector:
+    app: config-server
+  ports:
+    - port: 8888
+      targetPort: 8888
+  type: ClusterIP

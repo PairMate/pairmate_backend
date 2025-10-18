@@ -1,0 +1,143 @@
+######################################
+#  TEST 환경
+######################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: review-db-pvc
+  namespace: pairmate-test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ncloud-block-storage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-db
+  namespace: pairmate-test
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: review-db
+  template:
+    metadata:
+      labels:
+        app: review-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: review-db-secret
+                  key: DB_PASSWORD
+            - name: MYSQL_DATABASE
+              value: reviewdb
+            - name: TZ
+              value: "Asia/Seoul"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+          volumeMounts:
+            - name: review-db-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: review-db-storage
+          persistentVolumeClaim:
+            claimName: review-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: review-db
+  namespace: pairmate-test
+spec:
+  selector:
+    app: review-db
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None
+---
+######################################
+# PROD 환경
+######################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: review-db-pvc
+  namespace: pairmate-prod
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ncloud-block-storage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-db
+  namespace: pairmate-prod
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: review-db
+  template:
+    metadata:
+      labels:
+        app: review-db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: review-db-secret
+                  key: DB_PASSWORD
+            - name: MYSQL_DATABASE
+              value: reviewdb
+            - name: TZ
+              value: "Asia/Seoul"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+          volumeMounts:
+            - name: review-db-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: review-db-storage
+          persistentVolumeClaim:
+            claimName: review-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: review-db
+  namespace: pairmate-prod
+spec:
+  selector:
+    app: review-db
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None

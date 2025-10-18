@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pairmate-test
+  # 테스트 환경
+  labels:
+    environment: test # test label
+    branch: develop
+    owner : backend
+    # 운영 환경
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pairmate-prod
+  labels:
+    environment: production # prod label
+    branch: main
+    owner: backend

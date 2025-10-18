@@ -1,0 +1,82 @@
+# ================================
+# store-service (pairmate-test)
+# ================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-service
+  namespace: pairmate-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: store-service
+  template:
+    metadata:
+      labels:
+        app: store-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      initContainers:
+        - name: wait-for-config
+          image: busybox
+          command: ['sh', '-c', 'until nc -z config-server 8888; do echo waiting config; sleep 3; done;']
+        - name: wait-for-eureka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
+        - name: wait-for-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -z store-db 3306; do echo waiting db; sleep 3; done;']
+
+      containers:
+        - name: store-service
+          image: kr.ncr.ntruss.com/pairmate-registry/store-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: global-config
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: store-db-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: store-db-secret
+                  key: DB_PASSWORD
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - >
+                  nc -z store-db 3306 &&
+                  nc -z config-server 8888 &&
+                  nc -z eureka-server 8761 &&
+                  curl -f http://localhost:8080/actuator/health
+            initialDelaySeconds: 45
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8082
+            initialDelaySeconds: 30
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-service
+  namespace: pairmate-test
+spec:
+  selector:
+    app: store-service
+  ports:
+    - port: 8082
+      targetPort: 8082
+  type: ClusterIP
