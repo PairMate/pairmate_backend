@@ -9,6 +9,7 @@ import pairmate.review_service.domain.ReviewImages;
 import pairmate.review_service.domain.Reviews;
 import pairmate.review_service.dto.ReviewRequest;
 import pairmate.review_service.dto.ReviewResponse;
+import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.review_service.feign.StoreClient;
 import pairmate.review_service.feign.StoreResponse;
 import pairmate.review_service.repository.ReviewImageRepository;
@@ -32,7 +33,7 @@ public class ReviewService {
     public List<ReviewResponse> getReviewsByStoreId(Long storeId) {
         StoreResponse store = storeClient.getStoreById(storeId);
         if (store == null) {
-            throw new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.STORE_NOT_FOUND);
         }
 
         return reviewRepository.findByStoreId(storeId)
@@ -60,7 +61,7 @@ public class ReviewService {
     public ReviewResponse createReview(ReviewRequest dto, Long storeId, Long userId) {
         StoreResponse store = storeClient.getStoreById(storeId);
         if (store == null) {
-            throw new CustomException(ErrorCode.NOT_FOUND, "해당 음식점이 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.STORE_NOT_FOUND);
         }
 
         Reviews review = Reviews.builder()
@@ -93,10 +94,10 @@ public class ReviewService {
     @Transactional
     public void updateReview(Long reviewId, ReviewRequest dto, Long userId) {
         Reviews review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "해당 리뷰를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.REVIEW_NOT_FOUND));
 
         if (!review.getUserId().equals(userId)) {
-            throw new IllegalStateException("본인이 작성한 리뷰만 수정할 수 있습니다.");
+            throw new CustomException(ErrorCode.REVIEW_NOT_FOUND);
         }
 
         if (dto.getStarRating() != null) review.setStarRating(dto.getStarRating());
@@ -110,15 +111,20 @@ public class ReviewService {
     @Transactional
     public void deleteReview(Long reviewId, Long userId) {
         Reviews review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "해당 리뷰를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.REVIEW_NOT_FOUND));
 
         // 유저ㅓ 권한 확인
         if (!review.getUserId().equals(userId)) {
-            throw new IllegalStateException("본인이 작성한 리뷰만 삭제할 수 있습니다.");
+            throw new CustomException(ErrorCode.FORBIDDEN);
         }
 
         // 연관된 이미지를 먼저 삭제 후, 리뷰를 삭제합니다.
         reviewImageRepository.deleteAll(reviewImageRepository.findByReview_ReviewId(reviewId));
         reviewRepository.delete(review);
+    }
+
+    @Transactional(readOnly = true)
+    public ReviewStatsDto getReviewStatsByStoreId(Long storeId) {
+        return reviewRepository.findReviewStatsByStoreId(storeId);
     }
 }

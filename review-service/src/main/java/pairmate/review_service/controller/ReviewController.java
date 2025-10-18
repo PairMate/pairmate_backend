@@ -1,5 +1,6 @@
 package pairmate.review_service.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import pairmate.common_libs.response.ApiResponse;
 import pairmate.common_libs.response.SuccessCode;
 import pairmate.review_service.dto.ReviewRequest;
 import pairmate.review_service.dto.ReviewResponse;
+import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.review_service.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +23,17 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+
+    /**
+     * 가게 리뷰 통계 조회 (내부 통신용)
+     */
+    @Hidden // 서비스 간 통신용이므로 Swagger 문서에서 숨깁니다.
+    @Operation(summary = "가게 리뷰 통계 조회 (내부 통신용)")
+    @GetMapping("/internal/stats/store/{storeId}")
+    public ApiResponse<ReviewStatsDto> getReviewStats(@PathVariable Long storeId) {
+        ReviewStatsDto stats = reviewService.getReviewStatsByStoreId(storeId);
+        return ApiResponse.onSuccess(stats, SuccessCode.OK);
+    }
 
     @Operation(summary = "음식점 후기 목록 조회", description = "특정 음식점(storeId)에 작성된 모든 후기를 반환합니다.")
     @GetMapping

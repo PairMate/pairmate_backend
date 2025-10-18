@@ -100,7 +100,7 @@ public class UserService {
                 .build();
 
         refreshTokenRepository.save(refreshToken);
-        log.info("[AUTH] 로그인 성공 userId={}, loginId={}", user.getUserId(), user.getLoginId());
+        log.info("[AUTH] 로그인 성공 userId={}, loginId={}, userRole={}", user.getUserId(), user.getLoginId(), user.getUserRole());
 
         return new UserDTO.LoginResponseDTO(user, new TokenDTO(accessToken));
     }
@@ -154,6 +154,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserDTO.UserResponseDTO getCurrentUser(Long userId) {
         Users user = userRepository.findByUserId(userId);
+        return new UserDTO.UserResponseDTO(user);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDTO.UserResponseDTO getUserInfoInternal(Long userId) {
+        Users user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         return new UserDTO.UserResponseDTO(user);
     }
 

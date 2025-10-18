@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import pairmate.store_service.domain.common.BaseEntity;
+import org.locationtech.jts.geom.Point;
 
 import java.time.LocalTime;
 
@@ -44,9 +45,15 @@ public class Stores extends BaseEntity {
     @Column(name = "store_main_image_url", length = 100)
     private String storeMainImageUrl;
 
-    // 공간 타입이면 JTS 라이브러리 등으로 매핑 필요, 현재는 String으로 임시 처리
-    @Column(name = "store_locate", nullable = false)
-    private String storeLocate;
+//    // 공간 타입이면 JTS 라이브러리 등으로 매핑 필요, 현재는 String으로 임시 처리
+//    @Column(name = "store_locate", nullable = false, columnDefinition = "POINT")
+//    private Point storeLocate;
+
+    @Column(name = "latitude", nullable = false)
+    private Double latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private Double longitude;
 
     @Column(name = "store_type", length = 200, nullable = true)
     private String storeType;

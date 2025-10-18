@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="dataSourceStorageLocal" created-in="IU-252.26199.169">
     <data-source name="pairmate_db@localhost" uuid="3a648fa5-0c83-44f3-9399-35a3197c3d26">
+=======
+  <component name="dataSourceStorageLocal" created-in="IU-241.18034.62">
+    <data-source name="pairmate_db@localhost" uuid="8fb7f314-ebe3-4560-9b41-f59bd5216695">
+>>>>>>> origin/main
       <database-info product="MySQL" version="8.3.0" jdbc-version="4.2" driver-name="Amazon Web Services (AWS) JDBC Driver for MySQL" driver-version="aws-mysql-connector-java-1.1.14 (Revision: 4629bb4ea3ade12a811483453fafcb8fc2a66bb5)" dbms="MYSQL" exact-version="8.3.0" exact-driver-version="1.1">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
@@ -13,6 +18,7 @@
         <introspection-scope>
           <node kind="schema">
             <name qname="@" />
+            <name qname="pay_service_db" />
             <name qname="review_service_db" />
             <name qname="store_service_db" />
             <name qname="user_service_db" />
