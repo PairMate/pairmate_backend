@@ -5,3 +5,11 @@ metadata:
   namespace: pairmate-prod
 data:
   CONFIG_SERVER_URL: "http://config-server:8888"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global-config
+  namespace: pairmate-test
+data:
+  CONFIG_SERVER_URL: "http://config-server:8888"

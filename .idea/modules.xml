@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-libs/pairmate.common-libs.test.iml" filepath="$PROJECT_DIR$/.idea/modules/common-libs/pairmate.common-libs.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common-libs/common-libs.pairmate.common-libs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common-libs/common-libs.pairmate.common-libs.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-server/pairmate.config-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/config-server/pairmate.config-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/config-server/pairmate.config-server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/config-server/pairmate.config-server.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/pairmate.eureka-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/pairmate.eureka-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/pairmate.eureka-server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/pairmate.eureka-server.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/event-service/pairmate.event-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway-service/pairmate.gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway-service/pairmate.gateway-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway-service/pairmate.gateway-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway-service/pairmate.gateway-service.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pairmate.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pairmate.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pay-service/pairmate.pay-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pay-service/pairmate.pay-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pay-service/pairmate.pay-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/pay-service/pairmate.pay-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/review-service/pairmate.review-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/review-service/pairmate.review-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/review-service/pairmate.review-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/review-service/pairmate.review-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-service/pairmate.store-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-service/pairmate.store-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-service/pairmate.store-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/store-service/pairmate.store-service.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pairmate.test.iml" filepath="$PROJECT_DIR$/.idea/modules/pairmate.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/pairmate.user-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/pairmate.user-service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/user-service.pairmate.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/user-service.pairmate.user-service.main.iml" />
     </modules>

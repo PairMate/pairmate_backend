@@ -112,3 +112,32 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
+                  name: store-db-secret
+                  key: DB_PASSWORD
+            - name: MYSQL_DATABASE
+              value: storedb
+            - name: TZ
+              value: "Asia/Seoul"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+          command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+          volumeMounts:
+            - name: store-db-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: store-db-storage
+          persistentVolumeClaim:
+            claimName: store-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-db
+  namespace: pairmate-prod
+spec:
+  selector:
+    app: store-db
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None
