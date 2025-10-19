@@ -6,6 +6,10 @@ RUN apt-get update && apt-get install -y tzdata && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get clean
 
-COPY ./build/libs/*.jar app.jar
+# build/libs 안의 jar 파일을 모두 복사
+COPY ./build/libs/*.jar ./build/libs/
+
+# app.jar로 복사 (하나만 복사하도록 첫 번째 jar 선택)
+RUN cp ./build/libs/*.jar app.jar
 EXPOSE 8761
 ENTRYPOINT ["java", "-Duser.timezone=Asia/Seoul", "-jar", "app.jar"]
