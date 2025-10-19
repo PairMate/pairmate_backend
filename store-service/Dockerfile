@@ -2,7 +2,10 @@
 FROM openjdk:17-jdk-slim as build
 WORKDIR /app
 COPY . .
-
+# Gradle Wrapper 실행 권한 부여
+RUN chmod +x ./gradlew
+# 테스트 제외하고 빌드
+RUN ./gradlew clean build -x test
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 
