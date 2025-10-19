@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: review-service
-          image: kr.ncr.ntruss.com/pairmate-registry/review-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/review-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8084
@@ -111,7 +111,7 @@ spec:
 
       containers:
         - name: review-service
-          image: kr.ncr.ntruss.com/pairmate-registry/review-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/review-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8084

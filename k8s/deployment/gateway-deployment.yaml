@@ -25,7 +25,7 @@ spec:
           command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
       containers:
         - name: gateway-service
-          image: kr.ncr.ntruss.com/pairmate-registry/gateway-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/gateway-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -99,7 +99,7 @@ spec:
           command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
       containers:
         - name: gateway-service
-          image: kr.ncr.ntruss.com/pairmate-registry/gateway-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/gateway-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

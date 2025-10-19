@@ -29,7 +29,7 @@ spec:
 
       containers:
         - name: pay-service
-          image: kr.ncr.ntruss.com/pairmate-registry/pay-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pay-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8083
@@ -126,7 +126,7 @@ spec:
 
       containers:
         - name: pay-service
-          image: kr.ncr.ntruss.com/pairmate-registry/pay-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pay-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8083
