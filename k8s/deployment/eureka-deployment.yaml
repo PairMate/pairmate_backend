@@ -22,7 +22,7 @@ spec:
           command: ['sh', '-c', 'until nc -z config-server 8888; do echo waiting config; sleep 3; done;']
       containers:
         - name: eureka-server
-          image: kr.ncr.ntruss.com/pairmate-registry/eureka-server:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/eureka-server:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8761
@@ -95,7 +95,7 @@ spec:
           command: ['sh', '-c', 'until nc -z config-server 8888; do echo waiting config; sleep 3; done;']
       containers:
         - name: eureka-server
-          image: kr.ncr.ntruss.com/pairmate-registry/eureka-server:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/eureka-server:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8761
