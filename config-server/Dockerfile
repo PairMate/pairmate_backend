@@ -2,7 +2,6 @@
 FROM openjdk:17-jdk-slim as build
 WORKDIR /app
 COPY . .
-RUN ./gradlew clean build
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 
