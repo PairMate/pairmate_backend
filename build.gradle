@@ -56,7 +56,3 @@ dependencyManagement {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
-
-tasks.getByName<Jar>("jar") {
-    enabled = false
-}
