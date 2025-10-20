@@ -1,9 +1,11 @@
 FROM openjdk:17-jdk-slim AS build
 WORKDIR /app
-COPY ../gradlew ../settings.gradle ../build.gradle ./
-COPY ../gradle ./gradle
-COPY ../common-libs ./common-libs
-COPY . ./eureka-server
+
+COPY gradlew settings.gradle build.gradle ./
+COPY gradle ./gradle
+COPY common-libs ./common-libs
+COPY eureka-server ./eureka-server
+
 RUN chmod +x ./gradlew && ./gradlew :eureka-server:bootJar -x test
 
 FROM openjdk:17-jdk-slim

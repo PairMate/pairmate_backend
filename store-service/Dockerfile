@@ -1,9 +1,11 @@
 FROM openjdk:17-jdk-slim AS build
 WORKDIR /app
-COPY ../gradlew ../settings.gradle ../build.gradle ./
-COPY ../gradle ./gradle
-COPY ../common-libs ./common-libs
-COPY . ./store-service
+
+COPY gradlew settings.gradle build.gradle ./
+COPY gradle ./gradle
+COPY common-libs ./common-libs
+COPY store-service ./store-service
+
 RUN chmod +x ./gradlew && ./gradlew :store-service:bootJar -x test
 
 FROM openjdk:17-jdk-slim
