@@ -33,7 +33,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8083
-
           envFrom:
             - configMapRef:
                 name: global-config
@@ -48,16 +47,16 @@ spec:
                 secretKeyRef:
                   name: pay-db-secret
                   key: DB_PASSWORD
-            - name: PG_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: pay-pg-secret
-                  key: PG_API_KEY
-            - name: PG_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: pay-pg-secret
-                  key: PG_SECRET
+#            - name: PG_API_KEY
+#              valueFrom:
+#                secretKeyRef:
+#                  name: pay-pg-secret
+#                  key: PG_API_KEY
+#            - name: PG_SECRET
+#              valueFrom:
+#                secretKeyRef:
+#                  name: pay-pg-secret
+#                  key: PG_SECRET
           readinessProbe:
             exec:
               command:
