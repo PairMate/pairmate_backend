@@ -24,7 +24,7 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - secretRef:
-                - name: config-secret
+                name: config-secret
           ports:
             - containerPort: 8888
           startupProbe:
