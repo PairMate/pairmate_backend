@@ -97,7 +97,8 @@ public class ReviewService {
                 .orElseThrow(() -> new CustomException(ErrorCode.REVIEW_NOT_FOUND));
 
         if (!review.getUserId().equals(userId)) {
-            throw new CustomException(ErrorCode.REVIEW_NOT_FOUND);
+            // 작성자가 아닐 때
+            throw new CustomException(ErrorCode.FORBIDDEN);
         }
 
         if (dto.getStarRating() != null) review.setStarRating(dto.getStarRating());
