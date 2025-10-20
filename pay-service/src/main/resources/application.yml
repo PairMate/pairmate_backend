@@ -1,6 +1,15 @@
 server:
   port: 8082
 spring:
+  jpa:
+    hibernate:
+      # 이 부분이 가장 중요합니다!
+      ddl-auto: create  # 또는 update
+    # (선택) 실행되는 SQL 쿼리를 로그로 보고 싶을 때 추가
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   application:
     name: pay-service
   config:
