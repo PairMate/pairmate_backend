@@ -50,6 +50,7 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
             "/swagger-ui.html",
             "/v3/api-docs",
             "/swagger-resources",
+            "/actuator",
             "/webjars"
     );
 
