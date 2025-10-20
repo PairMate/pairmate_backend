@@ -54,15 +54,9 @@ spec:
                   key: DB_PASSWORD
 
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  nc -z store-db 3306 &&
-                  nc -z config-server 8888 &&
-                  nc -z eureka-server 8761 &&
-                  curl -f http://localhost:8080/actuator/health
+            httpGet:
+              path: /actuator/health
+              port: 8082
             initialDelaySeconds: 45
             periodSeconds: 10
             failureThreshold: 5
@@ -141,15 +135,9 @@ spec:
                   name: store-db-secret
                   key: DB_PASSWORD
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  nc -z store-db 3306 &&
-                  nc -z config-server 8888 &&
-                  nc -z eureka-server 8761 &&
-                  curl -f http://localhost:8080/actuator/health
+            httpGet:
+              path: /actuator/health
+              port: 8082
             initialDelaySeconds: 45
             periodSeconds: 10
           livenessProbe:

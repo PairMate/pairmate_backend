@@ -51,28 +51,17 @@ spec:
                   name: user-db-secret
                   key: DB_PASSWORD
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  curl -f http://localhost:8080/actuator/health ||
-                  exit 1;
-                  nc -z redis 6379 &&
-                  nc -z user-db 3306 &&
-                  nc -z gateway-service 8080 &&
-                  nc -z eureka-server 8761 &&
-                  nc -z config-server 8888
+            httpGet:
+              path: /actuator/health
+              port: 8081
             initialDelaySeconds: 45
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 5
           livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "redis-cli -h redis -a $REDIS_PASSWORD ping | grep PONG"
+            httpGet:
+              path: /actuator/health
+              port: 8081
             initialDelaySeconds: 30
             periodSeconds: 15
             timeoutSeconds: 5
@@ -145,28 +134,17 @@ spec:
                   name: user-db-secret
                   key: DB_PASSWORD
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  curl -f http://localhost:8080/actuator/health ||
-                  exit 1;
-                  nc -z redis 6379 &&
-                  nc -z user-db 3306 &&
-                  nc -z gateway-service 8080 &&
-                  nc -z eureka-server 8761 &&
-                  nc -z config-server 8888
+            httpGet:
+              path: /actuator/health
+              port: 8081
             initialDelaySeconds: 45
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 5
           livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - "redis-cli -h redis -a $REDIS_PASSWORD ping | grep PONG"
+            httpGet:
+              path: /actuator/health
+              port: 8081
             initialDelaySeconds: 30
             periodSeconds: 15
             timeoutSeconds: 5

@@ -58,15 +58,9 @@ spec:
 #                  name: pay-pg-secret
 #                  key: PG_SECRET
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  nc -z pay-db 3306 &&
-                  nc -z config-server 8888 &&
-                  nc -z eureka-server 8761 &&
-                  curl -f http://localhost:8080/actuator/health
+            httpGet:
+              path: /actuator/health
+              port: 8083
             initialDelaySeconds: 45
             periodSeconds: 10
             failureThreshold: 5
@@ -156,15 +150,9 @@ spec:
                   key: PG_SECRET
 
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  nc -z pay-db 3306 &&
-                  nc -z config-server 8888 &&
-                  nc -z eureka-server 8761 &&
-                  curl -f http://localhost:8080/actuator/health
+            httpGet:
+              path: /actuator/health
+              port: 8083
             initialDelaySeconds: 45
             periodSeconds: 10
             failureThreshold: 5
