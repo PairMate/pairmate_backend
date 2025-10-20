@@ -78,3 +78,7 @@ tasks.named('test') {
     useJUnitPlatform()
     exclude '**/*ApplicationTests.class'
 }
+
+tasks.named('jar') {
+    enabled = false
+}
