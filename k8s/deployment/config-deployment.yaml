@@ -90,6 +90,9 @@ spec:
         - name: config-server
           image: pairmate-registry.kr.ncr.ntruss.com/config-server:latest
           imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: config-secret
           ports:
             - containerPort: 8888
           startupProbe:
