@@ -33,7 +33,7 @@ spec:
               port: 8888
             failureThreshold: 10
             periodSeconds: 5
-            initialDelaySeconds: 60
+            initialDelaySeconds: 90
           readinessProbe:
             httpGet:
               path: /actuator/health
