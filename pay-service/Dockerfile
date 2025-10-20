@@ -1,9 +1,11 @@
 FROM openjdk:17-jdk-slim AS build
 WORKDIR /app
-COPY ../gradlew ../settings.gradle ../build.gradle ./
-COPY ../gradle ./gradle
-COPY ../common-libs ./common-libs
-COPY . ./pay-service
+
+COPY gradlew settings.gradle build.gradle ./
+COPY gradle ./gradle
+COPY common-libs ./common-libs
+COPY pay-service ./pay-service
+
 RUN chmod +x ./gradlew && ./gradlew :pay-service:bootJar -x test
 
 FROM openjdk:17-jdk-slim

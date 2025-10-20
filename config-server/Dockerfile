@@ -1,13 +1,15 @@
-# ---------- BUILD ----------
+# ---------- 빌드 단계 ----------
 FROM openjdk:17-jdk-slim AS build
 WORKDIR /app
-COPY ../gradlew ../settings.gradle ../build.gradle ./
-COPY ../gradle ./gradle
-COPY ../common-libs ./common-libs
-COPY . ./config-server
+
+COPY gradlew settings.gradle build.gradle ./
+COPY gradle ./gradle
+COPY common-libs ./common-libs
+COPY config-server ./config-server
+
 RUN chmod +x ./gradlew && ./gradlew :config-server:bootJar -x test
 
-# ---------- RUN ----------
+# ---------- 실행 단계 ----------
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 ENV TZ=Asia/Seoul
