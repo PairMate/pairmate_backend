@@ -36,13 +36,9 @@ spec:
             failureThreshold: 15
             periodSeconds: 5
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - >
-                  nc -z config-server 8888 &&
-                  curl -f http://localhost:8761/actuator/health
+            httpGet:
+              port: 8761
+              path: /actuator/health/readiness
             initialDelaySeconds: 45
             periodSeconds: 10
             failureThreshold: 5
@@ -110,7 +106,7 @@ spec:
             periodSeconds: 5
           readinessProbe:
             httpGet:
-              port: 8888
+              port: 8761
               path: /actuator/health
             initialDelaySeconds: 45
             periodSeconds: 10
