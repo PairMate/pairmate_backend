@@ -12,7 +12,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: ncloud-block-storage
+  storageClassName: nks-block-storage
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -30,6 +30,13 @@ spec:
       labels:
         app: pay-db
     spec:
+      initContainers:
+        - name: init-permissions
+          image: busybox
+          command: [ 'sh', '-c', 'chmod -R 777 /var/lib/mysql' ]
+          volumeMounts:
+            - name: pay-db-storage
+              mountPath: /var/lib/mysql
       containers:
         - name: mysql
           image: mysql:8.0
@@ -84,7 +91,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ncloud-block-storage
+  storageClassName: nks-block-storage
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -102,6 +109,13 @@ spec:
       labels:
         app: pay-db
     spec:
+      initContainers:
+        - name: init-permissions
+          image: busybox
+          command: [ 'sh', '-c', 'chmod -R 777 /var/lib/mysql' ]
+          volumeMounts:
+            - name: pay-db-storage
+              mountPath: /var/lib/mysql
       containers:
         - name: mysql
           image: mysql:8.0

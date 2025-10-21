@@ -1,3 +1,6 @@
+######################################
+#  REDIS - PROD
+######################################
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -9,7 +12,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: ncloud-block-storage
+  storageClassName: nks-block-storage
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -27,6 +30,13 @@ spec:
       labels:
         app: redis
     spec:
+      initContainers:
+        - name: init-permissions
+          image: busybox
+          command: ['sh', '-c', 'chmod -R 777 /data']
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
       containers:
         - name: redis
           image: redis:7.0
@@ -61,6 +71,9 @@ spec:
   type: ClusterIP
 
 ---
+######################################
+#  REDIS - TEST
+######################################
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -72,7 +85,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  storageClassName: ncloud-block-storage
+  storageClassName: nks-block-storage
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -90,6 +103,13 @@ spec:
       labels:
         app: redis
     spec:
+      initContainers:
+        - name: init-permissions
+          image: busybox
+          command: ['sh', '-c', 'chmod -R 777 /data']
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
       containers:
         - name: redis
           image: redis:7.0
