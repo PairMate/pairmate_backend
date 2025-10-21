@@ -32,10 +32,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: store-db-secret
-                  key: MYSQL_ROOT_PASSWORD
+              value: root
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
