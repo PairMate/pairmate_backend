@@ -10,7 +10,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: frontend-service
   template:
     metadata:
       labels:
@@ -65,7 +65,7 @@ spec:
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend-service
     spec:
       imagePullSecrets:
         - name: ncr-secret
