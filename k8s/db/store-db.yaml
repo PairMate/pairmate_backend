@@ -64,13 +64,12 @@ metadata:
   name: store-db
   namespace: pairmate-test
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: store-db
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 32031
 ---
 ######################################
 #  PROD 환경 - STORE DB
@@ -138,10 +137,9 @@ metadata:
   name: store-db
   namespace: pairmate-prod
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: store-db
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 32041

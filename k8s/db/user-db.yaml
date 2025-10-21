@@ -63,22 +63,21 @@ metadata:
   name: user-db
   namespace: pairmate-test
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: user-db
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 32032
 ---
 ######################################
-# USER DB (TEST)
+# USER DB (PROD)
 ######################################
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: user-db-pvc
-  namespace: pairmate-test
+  namespace: pairmate-prod
 spec:
   accessModes:
     - ReadWriteOnce
@@ -91,7 +90,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-db
-  namespace: pairmate-test
+  namespace: pairmate-prod
 spec:
   selector:
     matchLabels:
@@ -134,12 +133,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-db
-  namespace: pairmate-test
+  namespace: pairmate-prod
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: user-db
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 32032
