@@ -1,3 +1,6 @@
+######################################
+# PROD 환경
+######################################
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,7 +27,6 @@ spec:
                 name: frontend-secret
           ports:
             - containerPort: 80
-          # Nginx 기본 경로
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/conf.d
@@ -45,6 +47,10 @@ spec:
     - port: 80
       targetPort: 80
   type: ClusterIP
+
+######################################
+# TEST 환경
+######################################
 ---
 apiVersion: apps/v1
 kind: Deployment
