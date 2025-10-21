@@ -34,10 +34,7 @@ spec:
           image: mysql:8.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: pay-db-secret
-                  key: MYSQL_ROOT_PASSWORD
+              value: root
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
