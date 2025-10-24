@@ -26,7 +26,7 @@ spec:
             - secretRef:
                 name: frontend-secret
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/conf.d
@@ -45,5 +45,5 @@ spec:
     app: frontend-service
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 3000
   type: ClusterIP
