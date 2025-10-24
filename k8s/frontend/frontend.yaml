@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: frontend
-          image: kr.ncr.ntruss.com/pairmate-registry/frontend:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/frontend:latest
           imagePullPolicy: Always
           envFrom:
             - secretRef:

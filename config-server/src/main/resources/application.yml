@@ -11,7 +11,7 @@ spring:
         git:
           uri: https://github.com/PairMate/config-repo
           # default-label: main
-          default-label: develop1
+          default-label: main
           search-paths:
             - .
           username: ${GIT_USERNAME}
