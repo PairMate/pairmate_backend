@@ -4,33 +4,41 @@ metadata:
   name: lets-eat-ingress
   namespace: pairmate-prod
   annotations:
-    # HTTP(SSL) 리다이렉션 강제
+    # HTTPS 리다이렉션
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    # Ingress Controller를 nginx로 지정해줌
+
+    # NGINX Ingress Controller 지정
     kubernetes.io/ingress.class: "nginx"
-    # 클라이언트 요청 크기 제한
+
+    # 요청 크기 제한
     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
-    # 인증서 자동 발급 설정
+
+    # Cert-Manager 설정
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: nginx # controller와 일치해야 함
+  ingressClassName: nginx
   tls:
     - hosts:
         - lets-eat.store
-      secretName: lets-eat-tls-secret #cert-manager가 자동 저장
+      secretName: lets-eat-tls-secret
   rules:
     - host: lets-eat.store
       http:
         paths:
+          # 프론트엔드
           - path: /
+            pathType: Prefix
             backend:
               service:
                 name: frontend-service
                 port:
                   number: 80
-            pathType: Prefix
-          - path: /api
+
+          # 백엔드
+          - path: /api(/|$)(.*)
             pathType: Prefix
             backend:
               service:
