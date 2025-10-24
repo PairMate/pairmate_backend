@@ -43,16 +43,24 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
     private String secretKey;
 
     private static final List<String> EXCLUDED_PATHS = List.of(
-            "/auth/login",
-            "/auth/signup",
-            "/auth/reissue",
-            "/swagger-ui",
-            "/swagger-ui.html",
-            "/v3/api-docs",
-            "/swagger-resources",
-            "/actuator",
-            "/webjars"
+            "/api/user-service/auth/login",
+            "/api/user-service/auth/signup",
+            "/api/user-service/auth/reissue",
+            "/api/user-service/swagger-ui",
+            "/api/user-service/v3/api-docs",
+            "/api/user-service/swagger-resources",
+            "/api/user-service/actuator",
+            "/api/user-service/webjars",
+            "/api/user-service/error",
+
+            "/api/store-service/swagger-ui",
+            "/api/store-service/v3/api-docs",
+            "/api/review-service/swagger-ui",
+            "/api/review-service/v3/api-docs",
+            "/api/pay-service/swagger-ui",
+            "/api/pay-service/v3/api-docs"
     );
+
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
