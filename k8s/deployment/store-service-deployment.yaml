@@ -112,7 +112,7 @@ spec:
           command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
         - name: wait-for-db
           image: busybox
-          command: ['sh', '-c', 'until nc -z store-db 3306; do echo waiting db; sleep 3; done;']
+          command: ['sh', '-c', 'until nc -z user-db 3306; do echo waiting db; sleep 3; done;']
 
       containers:
         - name: store-service
