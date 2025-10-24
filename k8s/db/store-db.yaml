@@ -37,12 +37,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: store-db-secret
-                  key: MYSQL_USER
+                  key: DB_USERNAME
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: store-db-secret
-                  key: MYSQL_PASSWORD
+                  key: DB_PASSWORD
             - name: MYSQL_DATABASE
               value: storedb
           ports:
