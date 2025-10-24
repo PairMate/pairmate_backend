@@ -69,20 +69,3 @@ spec:
     - port: 6379
       targetPort: 6379
   type: ClusterIP
-
----
-######################################
-#  REDIS - TEST
-######################################
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: redis-pvc
-  namespace: pairmate-test
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-  storageClassName: nks-block-storage
