@@ -4,17 +4,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: frontend-service
   namespace: pairmate-prod
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: frontend-service
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend-service
     spec:
       imagePullSecrets:
         - name: ncr-secret
@@ -42,7 +42,7 @@ metadata:
   namespace: pairmate-prod
 spec:
   selector:
-    app: frontend
+    app: frontend-service
   ports:
     - port: 80
       targetPort: 80
@@ -54,22 +54,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: frontend-service
   namespace: pairmate-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: frontend-service
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend-service
     spec:
       imagePullSecrets:
         - name: ncr-secret
       containers:
-        - name: frontend
+        - name: frontend-service
           image: kr.ncr.ntruss.com/pairmate-registry/frontend:latest
           imagePullPolicy: Always
           envFrom:
@@ -92,7 +92,7 @@ metadata:
   namespace: pairmate-test
 spec:
   selector:
-    app: frontend
+    app: frontend-service
   ports:
     - port: 80
       targetPort: 80
