@@ -1,7 +1,6 @@
 server:
   port: 8888
 
-# 이전 버전
 spring:
   application:
     name: config-server
