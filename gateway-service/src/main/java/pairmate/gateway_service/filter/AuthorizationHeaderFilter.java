@@ -43,21 +43,21 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
     private String secretKey;
 
     private static final List<String> EXCLUDED_PATHS = List.of(
-            //  Swagger 관련
-            "/swagger-ui.html",              // Gateway Swagger UI 메인 페이지
-            "/swagger-ui",                   // Swagger UI 정적 리소스
-            "/v3/api-docs",                  // Gateway 자체 문서
-            "/user-service/v3/api-docs",     // User 서비스 문서
-            "/store-service/v3/api-docs",    // Store 서비스 문서
-            "/review-service/v3/api-docs",   // Review 서비스 문서
-            "/pay-service/v3/api-docs",      // Pay 서비스 문서
-            "/pay-service/v3/api-docs",      // Pay 서비스 문서
+            // Swagger 관련
+            "/api/swagger-ui.html",
+            "/api/swagger-ui",
+            "/api/v3/api-docs",
+            "/api/user-service/v3/api-docs",
+            "/api/store-service/v3/api-docs",
+            "/api/review-service/v3/api-docs",
+            "/api/pay-service/v3/api-docs",
 
-            // Auth 관련 (로그인, 회원가입, 토큰 재발급)
-            "/auth/login",
-            "/auth/signup",
-            "/auth/reissue"
+            // Auth 관련
+            "/api/auth/login",
+            "/api/auth/signup",
+            "/api/auth/reissue"
     );
+
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -65,8 +65,9 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
         log.info("[AUTH] Path: {}", path);
 
         // 인증 제외 경로 통과
-        if (EXCLUDED_PATHS.stream().anyMatch(path::contains)) {
-            log.info("[AUTH] Excluded path, skipping auth");
+        log.info("[AUTH] Incoming request path: {}", path);
+        if (EXCLUDED_PATHS.stream().anyMatch(path::startsWith)) {
+            log.info("[AUTH] Skipping auth for path: {}", path);
             return chain.filter(exchange);
         }
 
