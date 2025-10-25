@@ -10,7 +10,7 @@ data:
       server_name _;
 
       location / {
-        root /usr/share/nginx/html;
+        root /;
         index index.html index.htm;
         try_files $uri $uri/ /index.html;
       }
