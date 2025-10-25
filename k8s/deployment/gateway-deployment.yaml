@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: gateway-service
   namespace: pairmate-prod
+  annotations:
+    redeploy-trigger: "manual-restart-2025-10-25T22:45:00"
 spec:
   replicas: 1
   selector:
