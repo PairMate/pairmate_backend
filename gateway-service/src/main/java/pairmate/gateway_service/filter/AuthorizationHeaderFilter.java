@@ -43,24 +43,21 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
     private String secretKey;
 
     private static final List<String> EXCLUDED_PATHS = List.of(
-            "/api/user-service/auth/login",
-            "/api/user-service/auth/signup",
-            "/api/user-service/auth/reissue",
-            "/api/user-service/swagger-ui",
-            "/api/user-service/v3/api-docs",
-            "/api/user-service/swagger-resources",
-            "/api/user-service/actuator",
-            "/api/user-service/webjars",
-            "/api/user-service/error",
+            //  Swagger 관련
+            "/swagger-ui.html",              // Gateway Swagger UI 메인 페이지
+            "/swagger-ui",                   // Swagger UI 정적 리소스
+            "/v3/api-docs",                  // Gateway 자체 문서
+            "/user-service/v3/api-docs",     // User 서비스 문서
+            "/store-service/v3/api-docs",    // Store 서비스 문서
+            "/review-service/v3/api-docs",   // Review 서비스 문서
+            "/pay-service/v3/api-docs",      // Pay 서비스 문서
+            "/pay-service/v3/api-docs",      // Pay 서비스 문서
 
-            "/api/store-service/swagger-ui",
-            "/api/store-service/v3/api-docs",
-            "/api/review-service/swagger-ui",
-            "/api/review-service/v3/api-docs",
-            "/api/pay-service/swagger-ui",
-            "/api/pay-service/v3/api-docs"
+            // Auth 관련 (로그인, 회원가입, 토큰 재발급)
+            "/auth/login",
+            "/auth/signup",
+            "/auth/reissue"
     );
-
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
