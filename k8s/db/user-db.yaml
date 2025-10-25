@@ -6,12 +6,18 @@ kind: PersistentVolumeClaim
 metadata:
   name: user-db-pvc
   namespace: pairmate-prod
+
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
   storageClassName: nks-block-storage
 ---
 apiVersion: apps/v1
@@ -33,6 +39,8 @@ spec:
       containers:
         - name: mysql
           image: mysql:8.0
+          ports:
+            - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
@@ -48,11 +56,15 @@ spec:
                   key: DB_PASSWORD
             - name: MYSQL_DATABASE
               value: userdb
-          ports:
-            - containerPort: 3306
           volumeMounts:
             - name: user-db-storage
               mountPath: /var/lib/mysql
+            - name: init-db
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init-db
+          configMap:
+            name: user-db-init-config
   volumeClaimTemplates:
     - metadata:
         name: user-db-storage
@@ -60,7 +72,7 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 2Gi
+            storage: 4Gi
         storageClassName: nks-block-storage
 ---
 apiVersion: v1

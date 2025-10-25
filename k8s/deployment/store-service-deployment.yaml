@@ -134,12 +134,12 @@ spec:
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: store-db-secret
+                  name: user-db-secret
                   key: DB_USERNAME
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: store-db-secret
+                  name: user-db-secret
                   key: DB_PASSWORD
           readinessProbe:
             httpGet:

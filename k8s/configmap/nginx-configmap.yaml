@@ -23,6 +23,11 @@ data:
 
       # API 요청은 Gateway로 전달
       location /api {
+          # Swagger 요청은 내부 리소스로 rewrite
+          if ($request_uri ~ "^/api/swagger-ui") {
+              rewrite ^/api/swagger-ui(.*)$ /swagger-ui$1 break;
+          }
+          rewrite ^/api/(.*)$ /$1 break;
           proxy_pass http://gateway-service:8080;
           proxy_http_version 1.1;
           proxy_set_header Host $host;

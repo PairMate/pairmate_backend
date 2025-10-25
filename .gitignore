@@ -39,3 +39,4 @@ out/
 
 ### secret ##
 /k8s/secret
+/k8s/configmap
