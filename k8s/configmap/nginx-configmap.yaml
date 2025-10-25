@@ -9,14 +9,24 @@ data:
       listen 80;
       server_name _;
 
-      location / {
-        root /;
-        index index.html index.htm;
-        try_files $uri $uri/ /index.html;
+      root /app/dist;
+      index index.html;
+
+      # 정적 파일 직접 서빙
+      location /assets/ {
+          try_files $uri =404;
       }
 
-      # 모든 /api 요청은 Gateway로 프록시
+      # API 요청은 Gateway로 전달
       location /api {
-        proxy_pass http://gateway-service:8080;
+          proxy_pass http://gateway-service:8080;
       }
+
+      # SPA fallback (React Router 등)
+      location / {
+          try_files $uri $uri/ /index.html;
+      }
+
+      gzip on;
+      gzip_types text/plain application/javascript text/css application/json image/svg+xml;
     }

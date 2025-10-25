@@ -15,15 +15,16 @@ spec:
   storageClassName: nks-block-storage
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: user-db
   namespace: pairmate-prod
 spec:
+  serviceName: user-db
+  replicas: 1
   selector:
     matchLabels:
       app: user-db
-  replicas: 1
   template:
     metadata:
       labels:
@@ -52,10 +53,15 @@ spec:
           volumeMounts:
             - name: user-db-storage
               mountPath: /var/lib/mysql
-      volumes:
-        - name: user-db-storage
-          persistentVolumeClaim:
-            claimName: user-db-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: user-db-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi
+        storageClassName: nks-block-storage
 ---
 apiVersion: v1
 kind: Service
