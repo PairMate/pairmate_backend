@@ -1,25 +1,6 @@
 ######################################
 # USER DB (PROD)
 ######################################
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: user-db-pvc
-  namespace: pairmate-prod
-
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
-  storageClassName: nks-block-storage
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -61,6 +42,13 @@ spec:
               mountPath: /var/lib/mysql
             - name: init-db
               mountPath: /docker-entrypoint-initdb.d
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
       volumes:
         - name: init-db
           configMap:
@@ -72,7 +60,7 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 4Gi
+            storage: 8Gi
         storageClassName: nks-block-storage
 ---
 apiVersion: v1
