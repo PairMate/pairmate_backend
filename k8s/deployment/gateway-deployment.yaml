@@ -29,6 +29,13 @@ spec:
         - name: gateway-service
           image: pairmate-registry.kr.ncr.ntruss.com/gateway-service:latest
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "400m"
+              memory: "384Mi"
           ports:
             - containerPort: 8080
           envFrom:

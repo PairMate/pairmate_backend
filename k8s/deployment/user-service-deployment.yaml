@@ -32,8 +32,8 @@ spec:
               cpu: "200m"
               memory: "256Mi"
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "400m"
+              memory: "384Mi"
           image: pairmate-registry.kr.ncr.ntruss.com/user-service:latest
           imagePullPolicy: Always
           ports:

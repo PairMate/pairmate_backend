@@ -34,6 +34,13 @@ spec:
         - name: store-service
           image: pairmate-registry.kr.ncr.ntruss.com/store-service:latest
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "192Mi"
+            limits:
+              cpu: "300m"
+              memory: "320Mi"
           ports:
             - containerPort: 8082
 
