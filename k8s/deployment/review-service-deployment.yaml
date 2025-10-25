@@ -28,6 +28,13 @@ spec:
 
       containers:
         - name: review-service
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
           image: pairmate-registry.kr.ncr.ntruss.com/review-service:latest
           imagePullPolicy: Always
           ports:

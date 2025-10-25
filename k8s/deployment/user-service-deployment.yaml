@@ -27,6 +27,13 @@ spec:
           command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
       containers:
         - name: user-service
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
           image: pairmate-registry.kr.ncr.ntruss.com/user-service:latest
           imagePullPolicy: Always
           ports:
