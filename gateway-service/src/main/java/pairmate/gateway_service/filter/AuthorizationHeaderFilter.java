@@ -44,13 +44,26 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
 
     private static final List<String> EXCLUDED_PATHS = List.of(
             // Swagger 관련
-            "/api/swagger-ui.html",
-            "/api/swagger-ui",
-            "/api/v3/api-docs",
+            "/swagger-ui.html",
+            "/swagger-ui/",
+            "/v3/api-docs",
+            "/webjars/",
+            "/api/user-service/swagger-ui.html",
+            "/api/user-service/swagger-ui/",
             "/api/user-service/v3/api-docs",
+            "/api/user-service/webjars/",
+            "/api/store-service/swagger-ui.html",
+            "/api/store-service/swagger-ui/",
             "/api/store-service/v3/api-docs",
+            "/api/store-service/webjars/",
+            "/api/review-service/swagger-ui.html",
+            "/api/review-service/swagger-ui/",
             "/api/review-service/v3/api-docs",
+            "/api/review-service/webjars/",
+            "/api/pay-service/swagger-ui.html",
+            "/api/pay-service/swagger-ui/",
             "/api/pay-service/v3/api-docs",
+            "/api/pay-service/webjars/",
 
             // Auth 관련
             "/api/auth/login",
