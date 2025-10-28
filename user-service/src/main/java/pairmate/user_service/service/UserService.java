@@ -30,25 +30,37 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     /**
+     *  아이디 중복 체크
+     */
+    @Transactional(readOnly = true)
+    public void isValidLoginId(String loginId) {
+        // 중복 아이디 체크
+        userRepository.findByLoginId(loginId)
+                .ifPresent(u -> {
+                    log.warn("[USER] 회원가입 실패 - 중복된 로그인 ID={}", loginId);
+                    throw new CustomException(ErrorCode.DUPLICATE_LOGIN_ID);
+                });
+    }
+
+    /**
+     * 닉네임 중복 체크
+     */
+    @Transactional(readOnly = true)
+    public void isValidNickname(String nickname) {
+        // 중복 닉네임 체크
+        userRepository.findByNickname(nickname)
+                .ifPresent(u -> {
+                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 ID={}", nickname);
+                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
+                });
+    }
+
+    /**
      * 회원가입
      */
     @Transactional
     public UserDTO.UserResponseDTO signUp(SignUpDTO dto) {
         log.info("[USER] 회원가입 요청 loginId={}", dto.getLoginId());
-
-        // 중복 아이디 체크
-        userRepository.findByLoginId(dto.getLoginId())
-                .ifPresent(u -> {
-                    log.warn("[USER] 회원가입 실패 - 중복된 로그인 ID={}", dto.getLoginId());
-                    throw new CustomException(ErrorCode.DUPLICATE_LOGIN_ID);
-                });
-        // 중복 닉네임 체크
-        userRepository.findByNickname(dto.getNickName())
-                .ifPresent(u -> {
-                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 ID={}", dto.getNickName());
-                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
-                });
-
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         log.debug("[USER] 비밀번호 암호화 완료 loginId={}", dto.getLoginId());
@@ -59,6 +71,7 @@ public class UserService {
                 .nickname(dto.getNickName())
                 .password(encodedPassword)
                 .userRole("USER")
+                .userType(dto.getUserType())
                 .build();
 
         userRepository.save(user);
@@ -151,6 +164,7 @@ public class UserService {
         return new TokenDTO(newAccessToken);
     }
 
+    // 현재 로그인한 사용자 조회
     @Transactional(readOnly = true)
     public UserDTO.UserResponseDTO getCurrentUser(Long userId) {
         Users user = userRepository.findByUserId(userId);

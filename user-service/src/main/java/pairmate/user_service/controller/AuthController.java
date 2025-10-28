@@ -104,6 +104,23 @@ public class AuthController {
     }
 
 
+    /**
+     *  아이디 중복 체크
+     */
+    @GetMapping("/confirm/id")
+    public ApiResponse<?> confirmLoginId(@RequestParam String loginId) {
+        userService.isValidLoginId(loginId);
+        return ApiResponse.onSuccess("아이디 중복 확인에 성공했습니다.", SuccessCode.OK);
+    }
+
+    /**
+     *  닉네임 중복 체크
+     */
+    @GetMapping("/confirm/nickname")
+    public ApiResponse<?> confirmNickname (@RequestParam String nickname) {
+        userService.isValidNickname(nickname);
+        return ApiResponse.onSuccess("닉네임 중복 확인에 성공했습니다.", SuccessCode.OK);
+    }
 
     /**
      * Authorization 헤더에서 "Bearer " 제거

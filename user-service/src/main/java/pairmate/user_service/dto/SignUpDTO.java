@@ -1,11 +1,13 @@
 package pairmate.user_service.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pairmate.user_service.domain.UserType;
 import pairmate.user_service.domain.Users;
 
 @Getter
@@ -31,4 +33,7 @@ public class SignUpDTO {
             message = "비밀번호는 영문, 숫자, 특수문자를 포함한 8~20자여야 합니다."
     )
     private String password;
+
+    @NotNull(message = "사용자 유형은 필수 입력값입니다.")
+    private UserType userType;
 }
