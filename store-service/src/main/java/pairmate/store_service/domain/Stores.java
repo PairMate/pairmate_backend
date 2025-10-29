@@ -74,6 +74,7 @@ public class Stores extends BaseEntity {
     @Column(name = "free_people", nullable = true)
     private Integer freePeople;
 
+    // 가게 정보 업데이트 메서드 (이미지 URL 포함)
     public void updateStoreInfo(
             StoreCategories storeCategory,
             String storeName,
@@ -84,7 +85,8 @@ public class Stores extends BaseEntity {
             LocalTime storeOpenTime,
             LocalTime storeCloseTime,
             String storeContent,
-            Integer freePeople
+            Integer freePeople,
+            String storeMainImageUrl
     ) {
         this.storeCategory = storeCategory;
         this.storeName = storeName;
@@ -96,5 +98,8 @@ public class Stores extends BaseEntity {
         this.storeCloseTime = storeCloseTime;
         this.storeContent = storeContent;
         this.freePeople = freePeople;
+        if (storeMainImageUrl != null) {
+            this.storeMainImageUrl = storeMainImageUrl;
+        }
     }
 }

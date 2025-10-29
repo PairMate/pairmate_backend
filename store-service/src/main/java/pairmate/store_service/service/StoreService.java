@@ -160,7 +160,7 @@ public class StoreService {
 
     // 가게 수정
     @Transactional
-    public void updateStore(Long storeId, StoreRegisterRequest request, Long userId) {
+    public void updateStore(Long storeId, StoreRegisterRequest request, MultipartFile storeImage, Long userId) {
         Stores store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
@@ -188,6 +188,12 @@ public class StoreService {
         StoreCategories category = storeCategoryRepository.findById(request.getStoreCategoryId())
                 .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
 
+        // 이미지 처리(업데이트 시 새 이미지가 들어오면 교체)
+        String imageUrl = null;
+        if (storeImage != null && !storeImage.isEmpty()) {
+            imageUrl = fileUploadService.uploadFile(storeImage);
+        }
+
         store.updateStoreInfo(
                 category,
                 request.getStoreName(),
@@ -198,7 +204,8 @@ public class StoreService {
                 request.getStoreOpenTime(),
                 request.getStoreCloseTime(),
                 request.getStoreContent(),
-                request.getFreePeople()
+                request.getFreePeople(),
+                imageUrl
         );
     }
 
