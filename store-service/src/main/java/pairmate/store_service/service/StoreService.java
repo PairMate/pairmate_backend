@@ -95,8 +95,13 @@ public class StoreService {
             ApiResponse<UserResponseDto> userResponse;
             try {
                 userResponse = userClient.getUserById(userId);
+            } catch (feign.FeignException.NotFound e) {
+                throw new CustomException(ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다.");
+            } catch (feign.FeignException e) {
+                // 4xx/5xx 중 NotFound 제외한 Feign 오류
+                throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 서비스 오류: " + e.status());
             } catch (Exception e) {
-
+                // 네트워크/타임아웃/직렬화 등
                 throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 정보 조회에 실패했습니다.");
             }
 
@@ -105,7 +110,7 @@ public class StoreService {
             if (user == null) {
                 throw new CustomException(ErrorCode.USER_NOT_FOUND);
             }
-            if (!"ADMIN".equals(user.getUserRole() )) {
+            if (!"CEO".equals(user.getUserRole() )) {
                 throw new CustomException(ErrorCode.FORBIDDEN);
             }
 
@@ -167,7 +172,13 @@ public class StoreService {
         ApiResponse<UserResponseDto> userResponse;
         try {
             userResponse = userClient.getUserById(userId);
+        } catch (feign.FeignException.NotFound e) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다.");
+        } catch (feign.FeignException e) {
+            // 4xx/5xx 중 NotFound 제외한 Feign 오류
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 서비스 오류: " + e.status());
         } catch (Exception e) {
+            // 네트워크/타임아웃/직렬화 등
             throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 정보 조회에 실패했습니다.");
         }
 
@@ -176,7 +187,7 @@ public class StoreService {
         if (user == null) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
-        if (!"ADMIN".equals(user.getUserRole() )) {
+        if (!"CEO".equals(user.getUserRole() )) {
             throw new CustomException(ErrorCode.FORBIDDEN);
         }
 
