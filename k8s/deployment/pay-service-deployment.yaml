@@ -21,6 +21,13 @@ spec:
     spec:
       imagePullSecrets:
         - name: ncr-secret
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: pay-service
       initContainers:
         # Config Server, Eureka, DB가 준비될 때까지 대기
         - name: wait-for-config
@@ -41,7 +48,7 @@ spec:
             - containerPort: 8083
           resources:
             requests:
-              cpu: "150m"
+              cpu: "300m"
               memory: "256Mi"
             limits:
               cpu: "300m"
