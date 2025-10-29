@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "childCards")
+@Table(name = "child_cards")
 public class ChildCards extends BaseEntity {
 
     @Id
@@ -33,19 +33,24 @@ public class ChildCards extends BaseEntity {
     @Column(nullable = false)
     private LocalDate expireDate;
 
-    @Column(name = "day_limit", columnDefinition = "INT DEFAULT 0")
+    @Column(name = "day_limit", columnDefinition = "INT DEFAULT 0", nullable = false)
     @Builder.Default
     private int dayLimit = 0;
 
     @Column(nullable = false, length = 2)
     private String password;
 
-    @Column(columnDefinition = "INT DEFAULT 0")
+    @Column(columnDefinition = "INT DEFAULT 0", nullable = false)
     @Builder.Default
-    private int cash;
+    private int cash = 0;
 
+    /** 일일 한도 변경 */
     public void updateDayLimit(int limit) {
         this.dayLimit = limit;
     }
 
+    /** 잔액 변경 */
+    public void updateCash(int cash) {
+        this.cash = cash;
+    }
 }
