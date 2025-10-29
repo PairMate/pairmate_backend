@@ -72,11 +72,11 @@ public class UserService {
     /**
      * 비밀번호 확인
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public void confirmPassword(Long userId, String password) {
-        Users thisUser = getUser(userId);
-        Users confirmUser = userRepository.findByPassword(passwordEncoder.encode(password));
-        if (!(thisUser.getPassword().equals(confirmUser.getPassword()))) {
+        Users user = getUser(userId);
+        // 입력받은 비밀번호와 해시된 비밀번호 비교
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new CustomException(ErrorCode.INVALID_PASSWORD);
         }
     }
