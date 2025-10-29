@@ -23,7 +23,13 @@ spec:
     spec:
       imagePullSecrets:
         - name: ncr-secret
-
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: store-service
       initContainers:
         - name: wait-for-config
           image: busybox
@@ -41,8 +47,8 @@ spec:
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: "150m"
-              memory: "192Mi"
+              cpu: "200m"
+              memory: "256Mi"
             limits:
               cpu: "300m"
               memory: "320Mi"

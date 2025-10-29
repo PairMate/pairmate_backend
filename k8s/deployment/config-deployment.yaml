@@ -25,16 +25,23 @@ spec:
     spec:
       imagePullSecrets:
         - name: ncr-secret
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: config-server
       containers:
         - name: config-server
           image: pairmate-registry.kr.ncr.ntruss.com/config-server:latest
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: "100m"
+              cpu: "200m"
               memory: "128Mi"
             limits:
-              cpu: "200m"
+              cpu: "300m"
               memory: "256Mi"
           envFrom:
             - secretRef:

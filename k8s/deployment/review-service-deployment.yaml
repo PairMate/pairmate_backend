@@ -20,6 +20,13 @@ spec:
     spec:
       imagePullSecrets:
         - name: ncr-secret
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: review-service
       initContainers:
         - name: wait-for-config
           image: busybox
@@ -30,15 +37,14 @@ spec:
         - name: wait-for-db
           image: busybox
           command: ['sh', '-c', 'until nc -z user-db 3306; do echo waiting db; sleep 3; done;']
-
       containers:
         - name: review-service
           resources:
             requests:
-              cpu: "100m"
-              memory: "192Mi"
-            limits:
               cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "256m"
               memory: "320Mi"
           image: pairmate-registry.kr.ncr.ntruss.com/review-service:latest
           imagePullPolicy: Always
