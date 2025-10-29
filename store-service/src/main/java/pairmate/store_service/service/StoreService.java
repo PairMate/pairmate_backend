@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class StoreService {
 
     private final StoreRepository storeRepository;
@@ -35,7 +36,7 @@ public class StoreService {
     private final StoreCategoryRepository storeCategoryRepository;
     private final ReviewClient reviewClient;
     private final UserClient userClient;
-    // private final S3UploadService s3UploadService;           // 안 쓰는 거 같
+    private final FileUploadService fileUploadService;
 
     @Transactional(readOnly = true)
     public StoreResponse getStoreByIdInternal(Long storeId) {
@@ -87,6 +88,7 @@ public class StoreService {
                 .stream().map(MenuResponse::fromEntity).toList();
     }
 
+    // 가게 등록
     @Transactional
         public Long registerStore(StoreRegisterRequest request, MultipartFile storeImage, Long userId) {
 
@@ -115,8 +117,7 @@ public class StoreService {
         // 이미지 처리
         String imageUrl = null;
         if (storeImage != null && !storeImage.isEmpty()) {
-            // TODO: S3 등 외부 스토리지에 업로드하는 로직 구현 필요
-            imageUrl = "https://example.com/images/" + storeImage.getOriginalFilename();
+            imageUrl = fileUploadService.uploadFile(storeImage);
         }
 
         StoreCategories category = storeCategoryRepository.findById(request.getStoreCategoryId())
