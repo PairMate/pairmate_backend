@@ -2,6 +2,7 @@ package pairmate.user_service.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,25 +31,62 @@ public class UserService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     /**
+     *  아이디 중복 체크
+     */
+    @Transactional(readOnly = true)
+    public void isValidLoginId(String loginId) {
+        // 중복 아이디 체크
+        userRepository.findByLoginId(loginId)
+                .ifPresent(u -> {
+                    log.warn("[USER] 회원가입 실패 - 중복된 로그인 ID={}", loginId);
+                    throw new CustomException(ErrorCode.DUPLICATE_LOGIN_ID);
+                });
+    }
+
+    /**
+     * 닉네임 중복 체크
+     */
+    @Transactional(readOnly = true)
+    public void isValidNickname(String nickname) {
+        // 중복 닉네임 체크
+        userRepository.findByNickname(nickname)
+                .ifPresent(u -> {
+                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 NickName={}", nickname);
+                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
+                });
+    }
+
+    /**
+     * 닉네임 수정
+     */
+    @Transactional
+    public void updateNickName(Long userId, String nickname) {
+        // 중복 닉네임 체크
+        userRepository.findByNickname(nickname)
+                .ifPresent(u -> {
+                    log.warn("[USER] 중복된 닉네임 NickName={}", nickname);
+                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
+                });
+    }
+
+    /**
+     * 비밀번호 확인
+     */
+    @Transactional
+    public void confirmPassword(Long userId, String password) {
+        Users thisUser = getUser(userId);
+        Users confirmUser = userRepository.findByPassword(passwordEncoder.encode(password));
+        if (!(thisUser.getPassword().equals(confirmUser.getPassword()))) {
+            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+        }
+    }
+
+    /**
      * 회원가입
      */
     @Transactional
     public UserDTO.UserResponseDTO signUp(SignUpDTO dto) {
         log.info("[USER] 회원가입 요청 loginId={}", dto.getLoginId());
-
-        // 중복 아이디 체크
-        userRepository.findByLoginId(dto.getLoginId())
-                .ifPresent(u -> {
-                    log.warn("[USER] 회원가입 실패 - 중복된 로그인 ID={}", dto.getLoginId());
-                    throw new CustomException(ErrorCode.DUPLICATE_LOGIN_ID);
-                });
-        // 중복 닉네임 체크
-        userRepository.findByNickname(dto.getNickName())
-                .ifPresent(u -> {
-                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 ID={}", dto.getNickName());
-                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
-                });
-
         // 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         log.debug("[USER] 비밀번호 암호화 완료 loginId={}", dto.getLoginId());
@@ -59,6 +97,7 @@ public class UserService {
                 .nickname(dto.getNickName())
                 .password(encodedPassword)
                 .userRole("USER")
+                .userType(dto.getUserType())
                 .build();
 
         userRepository.save(user);
@@ -151,17 +190,23 @@ public class UserService {
         return new TokenDTO(newAccessToken);
     }
 
+    // 현재 로그인한 사용자 조회
     @Transactional(readOnly = true)
     public UserDTO.UserResponseDTO getCurrentUser(Long userId) {
-        Users user = userRepository.findByUserId(userId);
-        return new UserDTO.UserResponseDTO(user);
+        return new UserDTO.UserResponseDTO(getUser(userId));
     }
 
     @Transactional(readOnly = true)
     public UserDTO.UserResponseDTO getUserInfoInternal(Long userId) {
-        Users user = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        return new UserDTO.UserResponseDTO(user);
+        return new UserDTO.UserResponseDTO(getUser(userId));
+    }
+
+    private Users getUser(Long userId) {
+        try{
+            return userRepository.findByUserId(userId);
+        } catch (Exception e){
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
     }
 
 }

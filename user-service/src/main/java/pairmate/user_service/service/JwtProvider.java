@@ -17,7 +17,7 @@ public class JwtProvider {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    // Access Token 30분
+    // Access Token 24시간 
     private static final long ACCESS_TOKEN_EXPIRE = 1000L * 60 * 60 * 24;
     // Refresh Token 7일
     private final long REFRESH_TOKEN_EXPIRE = 1000L * 60 * 60 * 24 * 7;

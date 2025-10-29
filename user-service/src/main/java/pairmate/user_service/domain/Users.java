@@ -39,4 +39,12 @@ public class Users extends BaseEntity {
 
     @Column(name = "user_role", length = 15, nullable = false)
     private String userRole;
+
+    @Column(name = "user_type", length = 15, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

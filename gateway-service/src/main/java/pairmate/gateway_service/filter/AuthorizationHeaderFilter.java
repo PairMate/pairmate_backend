@@ -16,9 +16,9 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
-import pairmate.common_libs.exception.CustomException;
-import pairmate.common_libs.response.ApiResponse;
-import pairmate.common_libs.response.ErrorCode;
+import pairmate.gateway_service.exception.CustomException;
+import pairmate.gateway_service.response.ApiResponse;
+import pairmate.gateway_service.response.ErrorCode;
 import pairmate.gateway_service.jwt.JwtProvider;
 import reactor.core.publisher.Mono;
 

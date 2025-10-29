@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     Optional<Object> findByNickname(@NotBlank(message = "닉네임은 필수 입력값입니다.") @Size(min = 2, max = 10, message = "닉네임은 2~10자여야 합니다.") String nickName);
 
     Users findByUserId(Long userId);
+
+    Users findByPassword(String password);
 }
