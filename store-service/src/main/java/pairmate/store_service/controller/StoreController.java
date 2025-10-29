@@ -77,4 +77,15 @@ public class StoreController {
         Long newStoreId = storeService.registerStore(request, storeImage, userId);
         return ApiResponse.onSuccess(newStoreId, SuccessCode.CREATED);
     }
+
+    @Operation(summary = "가게 수정", description = "기존 가게 정보를 수정합니다.")
+    @PutMapping("/{storeId}")
+    public ApiResponse<Void> updateStore(
+            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
+            @PathVariable Long storeId,
+            @RequestBody StoreRegisterRequest request) {
+
+        storeService.updateStore(storeId, request, userId);
+        return ApiResponse.onSuccess(null, SuccessCode.OK);
+    }
 }

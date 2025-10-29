@@ -73,4 +73,28 @@ public class Stores extends BaseEntity {
 
     @Column(name = "free_people", nullable = true)
     private Integer freePeople;
+
+    public void updateStoreInfo(
+            StoreCategories storeCategory,
+            String storeName,
+            String storeContactNumber,
+            Double longitude,
+            Double latitude,
+            String storeType,
+            LocalTime storeOpenTime,
+            LocalTime storeCloseTime,
+            String storeContent,
+            Integer freePeople
+    ) {
+        this.storeCategory = storeCategory;
+        this.storeName = storeName;
+        this.storeContactNumber = storeContactNumber;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.storeType = storeType;
+        this.storeOpenTime = storeOpenTime;
+        this.storeCloseTime = storeCloseTime;
+        this.storeContent = storeContent;
+        this.freePeople = freePeople;
+    }
 }
