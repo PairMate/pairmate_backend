@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pairmate.common_libs.response.ApiResponse;
@@ -22,6 +23,7 @@ import pairmate.store_service.dto.StoreResponse;
 import java.util.List;
 
 @RestController
+@Controller
 @RequestMapping("/stores")
 @Tag(name = "Store", description = "식당 관련 API")
 @RequiredArgsConstructor
@@ -62,11 +64,15 @@ public class StoreController {
     }
 
     @Operation(summary = "가게 등록", description = "새로운 가게를 등록합니다.")
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, value = "/register") 
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, value = "/register") // multipart/form-data만 남겨도 됩니다.
+    @SneakyThrows
     public ApiResponse<Long> registerStore(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
-            @RequestPart("request") StoreRegisterRequest request,
+            @RequestPart("request") String requestJson,
             @RequestPart(value = "storeImage", required = false) MultipartFile storeImage) {
+
+        // ObjectMapper로 String을 DTO 객체로 수동 변환
+        StoreRegisterRequest request = objectMapper.readValue(requestJson, StoreRegisterRequest.class);
 
         Long newStoreId = storeService.registerStore(request, storeImage, userId);
         return ApiResponse.onSuccess(newStoreId, SuccessCode.CREATED);
