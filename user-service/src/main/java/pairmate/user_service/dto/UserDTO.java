@@ -43,5 +43,13 @@ public class UserDTO {
         }
     }
 
+    @Getter
+    @NoArgsConstructor
+    public static class PasswordRequestDTO {
+        private String password;
+        public PasswordRequestDTO(String password) {
+            this.password = password;
+        }
+    }
 
 }

@@ -2,6 +2,7 @@ package pairmate.user_service.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,9 +51,34 @@ public class UserService {
         // 중복 닉네임 체크
         userRepository.findByNickname(nickname)
                 .ifPresent(u -> {
-                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 ID={}", nickname);
+                    log.warn("[USER] 회원가입 실패 - 중복된 닉네임 NickName={}", nickname);
                     throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
                 });
+    }
+
+    /**
+     * 닉네임 수정
+     */
+    @Transactional
+    public void updateNickName(Long userId, String nickname) {
+        // 중복 닉네임 체크
+        userRepository.findByNickname(nickname)
+                .ifPresent(u -> {
+                    log.warn("[USER] 중복된 닉네임 NickName={}", nickname);
+                    throw new CustomException(ErrorCode.DUPLICATE_NICKNAME);
+                });
+    }
+
+    /**
+     * 비밀번호 확인
+     */
+    @Transactional
+    public void confirmPassword(Long userId, String password) {
+        Users thisUser = getUser(userId);
+        Users confirmUser = userRepository.findByPassword(passwordEncoder.encode(password));
+        if (!(thisUser.getPassword().equals(confirmUser.getPassword()))) {
+            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+        }
     }
 
     /**
@@ -167,15 +193,20 @@ public class UserService {
     // 현재 로그인한 사용자 조회
     @Transactional(readOnly = true)
     public UserDTO.UserResponseDTO getCurrentUser(Long userId) {
-        Users user = userRepository.findByUserId(userId);
-        return new UserDTO.UserResponseDTO(user);
+        return new UserDTO.UserResponseDTO(getUser(userId));
     }
 
     @Transactional(readOnly = true)
     public UserDTO.UserResponseDTO getUserInfoInternal(Long userId) {
-        Users user = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        return new UserDTO.UserResponseDTO(user);
+        return new UserDTO.UserResponseDTO(getUser(userId));
+    }
+
+    private Users getUser(Long userId) {
+        try{
+            return userRepository.findByUserId(userId);
+        } catch (Exception e){
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
     }
 
 }

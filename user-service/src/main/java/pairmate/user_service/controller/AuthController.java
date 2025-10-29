@@ -117,9 +117,27 @@ public class AuthController {
      *  닉네임 중복 체크
      */
     @GetMapping("/confirm/nickname")
-    public ApiResponse<?> confirmNickname (@RequestParam String nickname) {
+    public ApiResponse<?> confirmNickname(@RequestParam String nickname) {
         userService.isValidNickname(nickname);
         return ApiResponse.onSuccess("닉네임 중복 확인에 성공했습니다.", SuccessCode.OK);
+    }
+
+    /**
+     *  닉네임 수정
+     */
+    @PatchMapping("/users/update/nickname")
+    public ApiResponse<?> updateNickName(@Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId, @RequestParam String nickname) {
+        userService.updateNickName(userId, nickname);
+        return ApiResponse.onSuccess("닉네임 수정에 성공했습니다.", SuccessCode.OK);
+    }
+
+    /**
+     *  비밀번호 확인
+     */
+    @PostMapping("/users/password-confirm")
+    public ApiResponse<?> conFirmNickN(@Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,@RequestBody UserDTO.PasswordRequestDTO request) {
+        userService.confirmPassword(userId, request.getPassword());
+        return ApiResponse.onSuccess("비밀번호 확인에 성공했습니다.", SuccessCode.OK);
     }
 
     /**
