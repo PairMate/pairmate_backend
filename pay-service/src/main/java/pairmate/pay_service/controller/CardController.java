@@ -69,7 +69,7 @@ public class CardController {
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @PathVariable Long cardId
     ) {
-        CardDTO.CardCashResponseDTO response = cardService.getCardBalance(cardId, userId);
+        CardDTO.CardCashResponseDTO response = cardService.getCardBalance(userId, cardId);
         return ApiResponse.onSuccess(response, SuccessCode.OK);
     }
 
