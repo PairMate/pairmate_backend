@@ -62,7 +62,7 @@ public class StoreController {
     }
 
     @Operation(summary = "가게 등록", description = "새로운 가게를 등록합니다.")
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}) // multipart/form-data만 남겨도 됩니다.
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, value = "/register") 
     public ApiResponse<Long> registerStore(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @RequestPart("request") StoreRegisterRequest request,
