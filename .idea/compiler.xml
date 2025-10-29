@@ -10,10 +10,19 @@
         <module name="pairmate.config-server.main" />
         <module name="pairmate.eureka-server.main" />
         <module name="pairmate.gateway-service.main" />
+        <module name="pairmate.store-service.test" />
+        <module name="pairmate.gateway-service.test" />
         <module name="pairmate.pay-service.main" />
+        <module name="pairmate.config-server.test" />
         <module name="pairmate.store-service.main" />
+        <module name="pairmate.user-service.test" />
+        <module name="pairmate.pay-service.test" />
         <module name="pairmate.review-service.main" />
+        <module name="pairmate.common-libs.test" />
+        <module name="pairmate.eureka-server.test" />
         <module name="common-libs.pairmate.common-libs.main" />
+        <module name="user-service.pairmate.user-service.main" />
+        <module name="pairmate.review-service.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

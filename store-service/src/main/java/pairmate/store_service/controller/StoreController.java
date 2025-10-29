@@ -65,7 +65,7 @@ public class StoreController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}) // multipart/form-data만 남겨도 됩니다.
     public ApiResponse<Long> registerStore(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
-            @ModelAttribute StoreRegisterRequest request,
+            @RequestPart("request") StoreRegisterRequest request,
             @RequestPart(value = "storeImage", required = false) MultipartFile storeImage) {
 
         Long newStoreId = storeService.registerStore(request, storeImage, userId);
