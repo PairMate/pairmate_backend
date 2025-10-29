@@ -12,7 +12,7 @@ import pairmate.pay_service.service.CardService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pay/cards")
+@RequestMapping("/pay/cards")
 @RequiredArgsConstructor
 public class CardController {
 
