@@ -158,4 +158,56 @@ public class StoreService {
         return savedStore.getStoreId();
     }
 
+    // 가게 수정
+    @Transactional
+    public void updateStore(Long storeId, StoreRegisterRequest request, MultipartFile storeImage, Long userId) {
+        Stores store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        ApiResponse<UserResponseDto> userResponse;
+        try {
+            userResponse = userClient.getUserById(userId);
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 정보 조회에 실패했습니다.");
+        }
+
+        UserResponseDto user = userResponse.getResult();
+
+        if (user == null) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
+        if (!"ADMIN".equals(user.getUserRole() )) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+
+        if (request.getStoreOpenTime() != null && request.getStoreCloseTime() != null &&
+                request.getStoreCloseTime().isBefore(request.getStoreOpenTime())) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST, "영업 종료 시간은 시작 시간보다 빠를 수 없습니다.");
+        }
+
+        StoreCategories category = storeCategoryRepository.findById(request.getStoreCategoryId())
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        // 이미지 처리(업데이트 시 새 이미지가 들어오면 교체)
+        String imageUrl = null;
+        if (storeImage != null && !storeImage.isEmpty()) {
+            imageUrl = fileUploadService.uploadFile(storeImage);
+        }
+
+        store.updateStoreInfo(
+                category,
+                request.getStoreName(),
+                request.getStoreContactNumber(),
+                request.getLongitude(),
+                request.getLatitude(),
+                request.getStoreType(),
+                request.getStoreOpenTime(),
+                request.getStoreCloseTime(),
+                request.getStoreContent(),
+                request.getFreePeople(),
+                imageUrl
+        );
+    }
+
+
 }

@@ -64,7 +64,7 @@ public class StoreController {
     }
 
     @Operation(summary = "가게 등록", description = "새로운 가게를 등록합니다.")
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, value = "/register") // multipart/form-data만 남겨도 됩니다.
+    @PostMapping(path = "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}) // multipart/form-data만 남겨도 됩니다.
     @SneakyThrows
     public ApiResponse<Long> registerStore(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
@@ -76,5 +76,19 @@ public class StoreController {
 
         Long newStoreId = storeService.registerStore(request, storeImage, userId);
         return ApiResponse.onSuccess(newStoreId, SuccessCode.CREATED);
+    }
+
+    @Operation(summary = "가게 수정", description = "기존 가게 정보를 수정합니다.")
+    @PutMapping(path = "/{storeId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @SneakyThrows
+    public ApiResponse<Void> updateStore(
+            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
+            @PathVariable Long storeId,
+            @RequestPart("request") String requestJson,
+            @RequestPart(value = "storeImage", required = false) MultipartFile storeImage) {
+
+        StoreRegisterRequest request = objectMapper.readValue(requestJson, StoreRegisterRequest.class);
+        storeService.updateStore(storeId, request, storeImage, userId);
+        return ApiResponse.onSuccess(null, SuccessCode.OK);
     }
 }
