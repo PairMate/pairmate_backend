@@ -10,6 +10,11 @@ metadata:
     redeploy-trigger: "manual-restart-2025-10-25T22:45:00"
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: config-server

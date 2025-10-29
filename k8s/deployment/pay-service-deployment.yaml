@@ -8,6 +8,12 @@ spec:
   selector:
     matchLabels:
       app: pay-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+
   template:
     metadata:
       labels:
@@ -68,8 +74,8 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8083
-            initialDelaySeconds: 45
-            periodSeconds: 10
+            initialDelaySeconds: 90
+            periodSeconds: 5
             failureThreshold: 5
 
           # 활성 상태 프로브 (프로세스 응답 확인)
@@ -77,7 +83,7 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 8083
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 15
             failureThreshold: 3
 
