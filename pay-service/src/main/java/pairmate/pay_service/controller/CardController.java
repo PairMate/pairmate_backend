@@ -53,11 +53,12 @@ public class CardController {
     /**
      * 일일 한도 등록
      */
-    @PostMapping("/limit")
+    @PostMapping("/limit/{cardId}")
     public ApiResponse<String> registerDailyLimit(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
+            @PathVariable Long cardId,
             @Valid @RequestBody CardDTO.DailyLimitRequestDTO request) {
-        cardService.registerDailyLimit(userId, request);
+        cardService.registerDailyLimit(userId, cardId,request);
         return ApiResponse.onSuccess("일일 한도 설정에 성공했습니다.", SuccessCode.OK);
     }
 
