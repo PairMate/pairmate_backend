@@ -220,5 +220,26 @@ public class StoreService {
         );
     }
 
+    // 내가 등록한 가게 상세정보 조회
+    @Transactional(readOnly = true)
+    public StoreResponse getMyStoreDetail(Long storeId, Long userId) {
+        // 가게 존재 여부와 소유자 확인
+        Stores store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+        
+        // 요청한 사용자가 가게 소유자인지 확인
+        if (!store.getUserId().equals(userId)) {
+            throw new CustomException(ErrorCode.FORBIDDEN, "본인이 등록한 가게만 조회할 수 있습니다.");
+        }
 
+        ReviewStatsDto stats;
+        try {
+            ApiResponse<ReviewStatsDto> response = reviewClient.getReviewStatsByStoreId(store.getStoreId());
+            stats = response.getResult();
+        } catch (Exception e) {
+            stats = new ReviewStatsDto(0.0, 0L);
+        }
+
+        return StoreResponse.from(store, stats);
+    }
 }
