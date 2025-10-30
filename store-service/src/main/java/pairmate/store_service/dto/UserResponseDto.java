@@ -10,4 +10,5 @@ public class UserResponseDto {
     private String userRole;
     private String nickname;
     private String loginId;
+    private String userType;
 }
