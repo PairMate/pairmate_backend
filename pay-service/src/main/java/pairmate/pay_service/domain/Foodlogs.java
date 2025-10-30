@@ -27,9 +27,20 @@ public class Foodlogs {
     // 유저 FK
     private Long userId;
 
+    @Column(name = "store_name")
+    private String storeName;
+
+    @Column(name = "menu_name")
+    private String menuName;
+
+    @Column(name = "price")
+    private Integer price;
+
     @Column(name = "is_used", nullable = false)
     private Boolean isUsed;
 
     @Column(name = "used_at", nullable = false)
     private LocalDateTime usedAt;
+
+
 }

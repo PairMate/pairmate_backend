@@ -46,6 +46,8 @@ public enum ErrorCode implements BaseCode {
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE-404", "해당 음식점이 존재하지 않습니다."),
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "CATEGORY-404", "해당 카테고리를 찾을 수 없습니다."),
 
+    //메뉴 에러
+    MENU_NOT_EXIST(HttpStatus.NOT_FOUND,"STORE-404", "해당 메뉴가 존재하지 않습니다." ),
     // 리뷰 에러
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW-404", "해당 리뷰를 찾을 수 없습니다."),
 

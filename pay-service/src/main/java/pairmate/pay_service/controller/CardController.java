@@ -53,7 +53,7 @@ public class CardController {
     /**
      * 일일 한도 등록
      */
-    @PostMapping("/limit/{cardId}")
+    @PatchMapping("/limit/{cardId}")
     public ApiResponse<String> registerDailyLimit(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @PathVariable Long cardId,

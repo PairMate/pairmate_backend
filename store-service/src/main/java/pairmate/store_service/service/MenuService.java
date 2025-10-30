@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pairmate.common_libs.exception.CustomException;
+import pairmate.common_libs.response.ErrorCode;
 import pairmate.store_service.repository.MenuRepository;
 import pairmate.store_service.dto.MenuResponse;
 
+import java.awt.*;
 import java.util.List;
 
 @Slf4j
@@ -22,4 +25,10 @@ public class MenuService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public MenuResponse getMenuById(Long menuId) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(new CustomException(ErrorCode.MENU_NOT_EXIST));
+
+    }
 }

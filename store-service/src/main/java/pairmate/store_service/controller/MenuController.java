@@ -3,10 +3,7 @@ package pairmate.store_service.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pairmate.common_libs.exception.CustomException;
 import pairmate.common_libs.response.ErrorCode;
 import pairmate.store_service.service.MenuService;
@@ -27,14 +24,10 @@ public class MenuController {
         return menuService.getRandomMenus(count);
     }
 
-    /**
-     * Authorization 헤더에서 "Bearer " 제거
-     */
-    private String extractTokenFromHeader(String header) {
-        if (header == null || !header.startsWith("Bearer ")) {
-            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
-        }
-        return header.substring(7);
+    @GetMapping("/{storeId}/menus/{menuId}")
+    public MenuResponse getMenu(@PathVariable("storeId") Long storeId, @PathVariable("menuId") Long menuId) {
+        return menuService.getMenuById(menuId);
     }
+
 
 }
