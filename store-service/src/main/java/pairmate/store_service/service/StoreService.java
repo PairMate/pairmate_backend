@@ -110,7 +110,7 @@ public class StoreService {
             if (user == null) {
                 throw new CustomException(ErrorCode.USER_NOT_FOUND);
             }
-            if (!"CEO".equals(user.getUserRole() )) {
+            if (!"CEO".equals(user.getUserType() )) {
                 throw new CustomException(ErrorCode.FORBIDDEN);
             }
 
@@ -187,7 +187,7 @@ public class StoreService {
         if (user == null) {
             throw new CustomException(ErrorCode.USER_NOT_FOUND);
         }
-        if (!"CEO".equals(user.getUserRole() )) {
+        if (!"CEO".equals(user.getUserType() )) {
             throw new CustomException(ErrorCode.FORBIDDEN);
         }
 
