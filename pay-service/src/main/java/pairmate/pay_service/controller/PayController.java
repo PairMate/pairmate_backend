@@ -27,26 +27,4 @@ public class PayController {
         return ApiResponse.onSuccess(null, SuccessCode.OK);
     }
 
-    /**
-     * 오늘 결제 금액 조회
-     */
-    @GetMapping("/today")
-    public ApiResponse<Integer> getTodayPayment(
-            @RequestHeader("X-User-Id") Long userId
-    ) {
-        int todayTotal = payService.getTodayPayment(userId);
-        return ApiResponse.onSuccess(todayTotal, SuccessCode.OK);
-    }
-
-    /**
-     * 이번 달 결제 금액 조회
-     */
-    @GetMapping("/month")
-    public ApiResponse<Integer> getMonthlyPayment(
-            @RequestHeader("X-User-Id") Long userId
-    ) {
-        int monthlyTotal = payService.getMonthlyPayment(userId);
-        return ApiResponse.onSuccess(monthlyTotal, SuccessCode.OK);
-    }
-
 }
