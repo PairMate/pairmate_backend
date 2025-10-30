@@ -18,12 +18,12 @@ public class FoodLogDTO {
         private String storeType;
         private Boolean isUsed;
         private LocalDate validUntil;
-        private List<FoodLogMenuResponseDTO> menus;
+        private List<MenuResponseDTO> menus;
     }
 
     @Getter
     @NoArgsConstructor
-    public static class FoodLogMenuResponseDTO {
+    public static class MenuResponseDTO {
         private Long menuId;
         private String menuName;
         private Integer price;
@@ -36,4 +36,5 @@ public class FoodLogDTO {
         private Integer price;
         private LocalDate usedAt;
     }
+
 }
