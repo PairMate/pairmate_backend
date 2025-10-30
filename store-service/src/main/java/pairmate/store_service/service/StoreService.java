@@ -95,8 +95,13 @@ public class StoreService {
             ApiResponse<UserResponseDto> userResponse;
             try {
                 userResponse = userClient.getUserById(userId);
+            } catch (feign.FeignException.NotFound e) {
+                throw new CustomException(ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다.");
+            } catch (feign.FeignException e) {
+                // 4xx/5xx 중 NotFound 제외한 Feign 오류
+                throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 서비스 오류: " + e.status());
             } catch (Exception e) {
-
+                // 네트워크/타임아웃/직렬화 등
                 throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 정보 조회에 실패했습니다.");
             }
 
@@ -105,7 +110,7 @@ public class StoreService {
             if (user == null) {
                 throw new CustomException(ErrorCode.USER_NOT_FOUND);
             }
-            if (!"ADMIN".equals(user.getUserRole() )) {
+            if (!"CEO".equals(user.getUserType() )) {
                 throw new CustomException(ErrorCode.FORBIDDEN);
             }
 
@@ -157,5 +162,63 @@ public class StoreService {
         }
         return savedStore.getStoreId();
     }
+
+    // 가게 수정
+    @Transactional
+    public void updateStore(Long storeId, StoreRegisterRequest request, MultipartFile storeImage, Long userId) {
+        Stores store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        ApiResponse<UserResponseDto> userResponse;
+        try {
+            userResponse = userClient.getUserById(userId);
+        } catch (feign.FeignException.NotFound e) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND, "사용자를 찾을 수 없습니다.");
+        } catch (feign.FeignException e) {
+            // 4xx/5xx 중 NotFound 제외한 Feign 오류
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 서비스 오류: " + e.status());
+        } catch (Exception e) {
+            // 네트워크/타임아웃/직렬화 등
+            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR, "사용자 정보 조회에 실패했습니다.");
+        }
+
+        UserResponseDto user = userResponse.getResult();
+
+        if (user == null) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
+        if (!"CEO".equals(user.getUserType() )) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+
+        if (request.getStoreOpenTime() != null && request.getStoreCloseTime() != null &&
+                request.getStoreCloseTime().isBefore(request.getStoreOpenTime())) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST, "영업 종료 시간은 시작 시간보다 빠를 수 없습니다.");
+        }
+
+        StoreCategories category = storeCategoryRepository.findById(request.getStoreCategoryId())
+                .orElseThrow(() -> new CustomException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        // 이미지 처리(업데이트 시 새 이미지가 들어오면 교체)
+        String imageUrl = null;
+        if (storeImage != null && !storeImage.isEmpty()) {
+            imageUrl = fileUploadService.uploadFile(storeImage);
+        }
+
+        store.updateStoreInfo(
+                category,
+                request.getStoreName(),
+                request.getStoreContactNumber(),
+                request.getLongitude(),
+                request.getLatitude(),
+                request.getStoreType(),
+                request.getStoreOpenTime(),
+                request.getStoreCloseTime(),
+                request.getStoreContent(),
+                request.getFreePeople(),
+                imageUrl
+        );
+    }
+
 
 }
