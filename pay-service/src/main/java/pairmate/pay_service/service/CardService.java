@@ -57,14 +57,17 @@ public class CardService {
      * 일일 한도 등록
      */
     @Transactional
-    public void registerDailyLimit(Long userId, CardDTO.DailyLimitRequestDTO request) {
+    public void registerDailyLimit(Long userId, Long cardId, CardDTO.DailyLimitRequestDTO request) {
         if (request.getDailyLimit() == null || request.getDailyLimit() < 0) {
             throw new CustomException(ErrorCode.INVALID_CARD_INFO);
         }
 
-        ChildCards card = childCardRepository.findByUserId(userId)
+        ChildCards card = childCardRepository.findByCardId(cardId)
                 .orElseThrow(() -> new CustomException(ErrorCode.CARD_NOT_FOUND));
 
+        if (!card.getUserId().equals(userId)) {
+            throw new CustomException(ErrorCode.CARD_UNAUTHORIZED);
+        }
         card.updateDayLimit(request.getDailyLimit());
     }
 
@@ -82,4 +85,5 @@ public class CardService {
         }
         return new CardDTO.CardCashResponseDTO(card);
     }
+
 }

@@ -44,7 +44,6 @@ public class ChildCards extends BaseEntity {
     @Builder.Default
     private int cash = 0;
 
-    /** 일일 한도 변경 */
     public void updateDayLimit(int limit) {
         this.dayLimit = limit;
     }
