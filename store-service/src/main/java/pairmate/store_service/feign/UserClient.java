@@ -10,6 +10,6 @@ import pairmate.store_service.dto.UserResponseDto;
 @FeignClient(name = "user-service", configuration = FeignConfig.class) // Eureka에 등록된 user-service
 public interface UserClient {
 
-    @GetMapping("/api/auth/internal/{userId}")
+    @GetMapping("/auth/internal/{userId}")
     ApiResponse<UserResponseDto> getUserById(@PathVariable("userId") Long userId);
 }
