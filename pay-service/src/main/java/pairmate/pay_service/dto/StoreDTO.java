@@ -13,7 +13,7 @@ public class StoreDTO {
         private Long storeId;
         private String storeName;
         private String category;
-        private String storeType; // 예: 일반, 선한 영향력 가게
+        private String storeType;
         private String address;
     }
 

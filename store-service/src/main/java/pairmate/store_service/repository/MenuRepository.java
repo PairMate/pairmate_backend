@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import pairmate.store_service.domain.Menus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MenuRepository extends JpaRepository<Menus, Long> {
     List<Menus> findByStoreStoreId(Long storeId);
@@ -13,4 +14,5 @@ public interface MenuRepository extends JpaRepository<Menus, Long> {
     List<Menus> findRandomMenus(int count);
 
     List<Menus> findByMenuNameContaining(String menuName);
+    Optional<Menus> findByMenuId(Long menuId);
 }

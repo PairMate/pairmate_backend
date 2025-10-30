@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pairmate.common_libs.exception.CustomException;
 import pairmate.common_libs.response.ErrorCode;
+import pairmate.store_service.domain.Menus;
 import pairmate.store_service.repository.MenuRepository;
 import pairmate.store_service.dto.MenuResponse;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -27,8 +29,8 @@ public class MenuService {
 
     @Transactional(readOnly = true)
     public MenuResponse getMenuById(Long menuId) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(new CustomException(ErrorCode.MENU_NOT_EXIST));
-
+        Optional<Menus> menu = menuRepository.findByMenuId(menuId);
+        if (menu.isPresent()) return MenuResponse.fromEntity(menu.get());
+        else { throw new CustomException(ErrorCode.MENU_NOT_EXIST); }
     }
 }

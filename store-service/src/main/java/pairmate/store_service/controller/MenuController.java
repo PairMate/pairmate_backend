@@ -24,7 +24,7 @@ public class MenuController {
         return menuService.getRandomMenus(count);
     }
 
-    @GetMapping("/{storeId}/menus/{menuId}")
+    @GetMapping("/{menuId}")
     public MenuResponse getMenu(@PathVariable("storeId") Long storeId, @PathVariable("menuId") Long menuId) {
         return menuService.getMenuById(menuId);
     }

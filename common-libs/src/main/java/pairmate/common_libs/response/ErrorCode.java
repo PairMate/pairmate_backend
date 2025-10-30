@@ -48,6 +48,7 @@ public enum ErrorCode implements BaseCode {
 
     //메뉴 에러
     MENU_NOT_EXIST(HttpStatus.NOT_FOUND,"STORE-404", "해당 메뉴가 존재하지 않습니다." ),
+
     // 리뷰 에러
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW-404", "해당 리뷰를 찾을 수 없습니다."),
 
@@ -56,7 +57,8 @@ public enum ErrorCode implements BaseCode {
     CARD_ALREADY_REGISTERED(HttpStatus.CONFLICT, "CARD-409", "이미 등록된 카드입니다."),
     INVALID_CARD_INFO(HttpStatus.BAD_REQUEST, "CARD-400", "유효하지 않은 카드 정보입니다."),
     CARD_UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "CARD-401", "인증되지 않은 카드 요청입니다."),
-    CARD_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "CARD-402", "일일 사용 한도를 초과했습니다.");
+    CARD_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "CARD-402", "일일 사용 한도를 초과했습니다."),
+    INSUFFICIENT_BALANCE(HttpStatus.BAD_REQUEST,"CATEGORY-400" , "잔액이 부족합니다. ");
 
     private final HttpStatus httpStatus;
     private final String code;

@@ -11,4 +11,6 @@ public interface ChildCardsRepository extends JpaRepository<ChildCards, Long> {
     Optional<ChildCards> findByUserId(Long userId);
     List<ChildCards> findAllByUserId(Long userId);
     Optional<ChildCards> findByCardId(Long cardId);
+
+    Optional<ChildCards> findTop1ByUserIdOrderByCardIdDesc(Long userId);
 }

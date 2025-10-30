@@ -2,7 +2,6 @@ package pairmate.pay_service.openfeign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import pairmate.common_libs.response.ApiResponse;
 import pairmate.pay_service.dto.StoreDTO;
 
 
@@ -21,9 +20,8 @@ public interface StoreClient {
     /**
      * 특정 가게의 메뉴 단건 조회
      */
-    @GetMapping("/{storeId}/menus/{menuId}")
-    ApiResponse<StoreDTO.MenuResponse> getMenu(
-            @PathVariable("storeId") Long storeId,
+    @GetMapping("/{menuId}")
+    StoreDTO.MenuResponse getMenuInfo(
             @PathVariable("menuId") Long menuId
     );
 
