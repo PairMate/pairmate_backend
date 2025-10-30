@@ -1,5 +1,6 @@
 package pairmate.store_service.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -65,11 +66,12 @@ public class StoreController {
 
     @Operation(summary = "가게 등록", description = "새로운 가게를 등록합니다.")
     @PostMapping(path = "/register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}) // multipart/form-data만 남겨도 됩니다.
-    @SneakyThrows
+//    @SneakyThrows
     public ApiResponse<Long> registerStore(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
             @RequestPart("request") String requestJson,
-            @RequestPart(value = "storeImage", required = false) MultipartFile storeImage) {
+            @RequestPart(value = "storeImage", required = false) MultipartFile storeImage)
+            throws JsonProcessingException {
 
         // ObjectMapper로 String을 DTO 객체로 수동 변환
         StoreRegisterRequest request = objectMapper.readValue(requestJson, StoreRegisterRequest.class);
