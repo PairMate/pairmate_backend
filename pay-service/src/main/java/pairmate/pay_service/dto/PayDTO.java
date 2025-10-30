@@ -16,9 +16,18 @@ public class PayDTO {
         private String storeName;
         private String storeType;
         private String category;
-        private List<Long> menuIds;
+        private List<MenuDTO> menuList;
         private LocalDate validUntil;
     }
+
+    @Getter
+    public static class MenuDTO {
+        private Long menuId;
+        private String menuName;
+        private String price;
+        private String count;  // 문자열 수량
+    }
+
 
     @Getter
     public static class CardUsageRequestDTO {

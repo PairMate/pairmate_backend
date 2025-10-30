@@ -52,26 +52,30 @@ public class PayService {
                 .orElse(0);
     }
 
-    // 메뉴 선택 및 결제
+    /**
+     * 메뉴 선택 및 결제
+     * @param userId
+     * @param request
+     */
     @Transactional
     public void registerPayment(Long userId, PayDTO.PayRequestDTO request) {
         // 0. 유저의 최근 등록 카드 조회
         ChildCards card = childCardsRepository.findTop1ByUserIdOrderByCardIdDesc(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.CARD_NOT_FOUND));
 
-        // 1. 메뉴 총 금액 계산 (store-service OpenFeign 통해 조회)
-        int totalPrice = request.getMenuIds().stream()
-                .mapToInt(menu -> storeClient.getMenuInfo(menu).getPrice())
+        // 1. 메뉴 총 금액 계산 (프론트에서 전달받은 가격 + 수량 기반)
+        int totalPrice = request.getMenuList().stream()
+                .mapToInt(menu -> Integer.parseInt(menu.getPrice()) * Integer.parseInt(menu.getCount()))
                 .sum();
 
         // 2. 잔액 검증
         if (card.getCash() == 0 || card.getCash() < totalPrice) {
-            throw new CustomException(ErrorCode.INSUFFICIENT_BALANCE); // “잔액이 부족합니다”
+            throw new CustomException(ErrorCode.INSUFFICIENT_BALANCE);
         }
 
         // 3. 일일 한도 검증
         if (card.getDayLimit() < totalPrice) {
-            throw new CustomException(ErrorCode.CARD_LIMIT_EXCEEDED); // “일일 한도를 초과했습니다”
+            throw new CustomException(ErrorCode.CARD_LIMIT_EXCEEDED);
         }
 
         // 4. Foodlogs 생성 (가게 정보 포함, 기본 미사용 상태)
@@ -79,8 +83,7 @@ public class PayService {
         foodLogsRepository.save(foodlogs);
 
         // 5. FoodLogMenus 생성 (여러 메뉴 선택 가능)
-
-        List<FoodLogMenus> menus = payConverter.toFoodLogMenuEntities(foodlogs, request.getMenuIds());
+        List<FoodLogMenus> menus = payConverter.toFoodLogMenuEntities(foodlogs, request.getMenuList());
         foodLogMenusRepository.saveAll(menus);
 
         // 6. 카드 잔액 차감

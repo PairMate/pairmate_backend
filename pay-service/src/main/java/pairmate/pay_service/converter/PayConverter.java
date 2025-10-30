@@ -39,17 +39,18 @@ public class PayConverter {
                 .usedAt(LocalDateTime.now())
                 .build();
     }
+
     /**
-     * 메뉴 ID 리스트 → FoodLogMenus 엔티티 리스트 변환
-     * (Foodlogs와 매핑)
+     * 메뉴 리스트 → FoodLogMenus 엔티티 리스트 변환
      */
-    public List<FoodLogMenus> toFoodLogMenuEntities(Foodlogs foodlogs, List<Long> menuIds) {
-        return menuIds.stream()
-                .map(menuId -> FoodLogMenus.builder()
+    public List<FoodLogMenus> toFoodLogMenuEntities(Foodlogs foodlogs, List<PayDTO.MenuDTO> menuList) {
+        return menuList.stream()
+                .map(menu -> FoodLogMenus.builder()
                         .foodlogs(foodlogs)
-                        .menuId(menuId)
+                        .menuId(menu.getMenuId())
                         .build())
                 .collect(Collectors.toList());
     }
+
 
 }

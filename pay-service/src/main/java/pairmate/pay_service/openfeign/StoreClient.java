@@ -6,8 +6,7 @@ import pairmate.pay_service.dto.StoreDTO;
 
 
 @FeignClient(
-        name = "store-service",       // Eureka serviceId
-        path = "/api/stores"          // store-service의 공통 prefix
+        name = "store-service"
 )
 public interface StoreClient {
 
@@ -20,7 +19,7 @@ public interface StoreClient {
     /**
      * 특정 가게의 메뉴 단건 조회
      */
-    @GetMapping("/{menuId}")
+    @GetMapping("/menus/{menuId}")
     StoreDTO.MenuResponse getMenuInfo(
             @PathVariable("menuId") Long menuId
     );
