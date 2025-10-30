@@ -18,6 +18,7 @@ public class FoodLogDTO {
         private String storeType;
         private Boolean isUsed;
         private LocalDate validUntil;
+        private String category;
         private List<MenuResponseDTO> menus;
     }
 
