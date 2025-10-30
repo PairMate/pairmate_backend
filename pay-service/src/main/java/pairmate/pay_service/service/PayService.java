@@ -47,6 +47,10 @@ public class PayService {
     // 티켓 목록 조회 (최대 6건)
     // 티켓 사용완료 처리
     // 카드 사용내역 등록
+    @Transactional
+    public PayDTO.PayResponseDTO registerPayment(Long userId, PayDTO.PayRequestDTO payRequestDTO) {
 
+        foodLogsRepository.save()
+    }
 
 }
