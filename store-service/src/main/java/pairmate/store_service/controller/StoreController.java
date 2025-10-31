@@ -81,26 +81,27 @@ public class StoreController {
     }
 
     @Operation(summary = "가게 수정", description = "기존 가게 정보를 수정합니다.")
-    @PutMapping(path = "/{storeId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    @SneakyThrows
+    @PutMapping(path = "/edit", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    // @SneakyThrows
     public ApiResponse<Void> updateStore(
             @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
-            @PathVariable Long storeId,
             @RequestPart("request") String requestJson,
-            @RequestPart(value = "storeImage", required = false) MultipartFile storeImage) {
+            @RequestPart(value = "storeImage", required = false) MultipartFile storeImage) 
+            throws JsonProcessingException {
 
         StoreRegisterRequest request = objectMapper.readValue(requestJson, StoreRegisterRequest.class);
+        Long storeId = storeService.getStoreIdByUserId(userId);
         storeService.updateStore(storeId, request, storeImage, userId);
         return ApiResponse.onSuccess(null, SuccessCode.OK);
     }
 
     // 내가 등록한 가게 상세정보 조회
     @Operation(summary = "내가 등록한 가게 상세 조회", description = "내가 등록한 가게의 상세 정보를 조회합니다.")
-    @GetMapping("/my-store/{storeId}")
+    @GetMapping("/my-store")
     public ApiResponse<StoreResponse> getMyStoreDetail(
-            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId,
-            @PathVariable Long storeId) {
+            @Parameter(hidden = true) @RequestHeader("X-User-Id") Long userId) {
 
+        Long storeId = storeService.getStoreIdByUserId(userId);
         StoreResponse storeDetail = storeService.getMyStoreDetail(storeId, userId);
         return ApiResponse.onSuccess(storeDetail, SuccessCode.OK);
     }
