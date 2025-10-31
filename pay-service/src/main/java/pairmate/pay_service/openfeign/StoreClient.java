@@ -25,7 +25,4 @@ public interface StoreClient {
     );
 
 
-
-
-
 }

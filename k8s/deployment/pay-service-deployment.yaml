@@ -19,8 +19,6 @@ spec:
       labels:
         app: pay-service
     spec:
-      imagePullSecrets:
-        - name: ncr-secret
       initContainers:
         # Config Server, Eureka, DB가 준비될 때까지 대기
         - name: wait-for-config
@@ -35,7 +33,7 @@ spec:
 
       containers:
         - name: pay-service
-          image: pairmate-registry.kr.ncr.ntruss.com/pay-service:latest
+          image: docker.io/jiwonlee42/pay-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8083

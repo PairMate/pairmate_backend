@@ -39,4 +39,11 @@ public class FoodLogDTO {
         private LocalDate usedAt;
     }
 
+    @Getter
+    public static class FoodLogRequestDTO {
+        private Long foodLogId;
+        private LocalDate usedAt;
+        private boolean isUsed;
+    }
+
 }

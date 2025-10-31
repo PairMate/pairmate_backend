@@ -21,11 +21,9 @@ spec:
       labels:
         app: frontend-service
     spec:
-      imagePullSecrets:
-        - name: ncr-secret
       containers:
         - name: frontend
-          image: pairmate-registry.kr.ncr.ntruss.com/frontendservice:latest
+          image: docker.io/jiwonlee42/frontendservice:latest
           imagePullPolicy: Always
           resources:
             requests:

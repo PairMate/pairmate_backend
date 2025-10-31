@@ -21,9 +21,6 @@ spec:
       labels:
         app: store-service
     spec:
-      imagePullSecrets:
-        - name: ncr-secret
-
       initContainers:
         - name: wait-for-config
           image: busybox
@@ -37,7 +34,7 @@ spec:
 
       containers:
         - name: store-service
-          image: pairmate-registry.kr.ncr.ntruss.com/store-service:latest
+          image: docker.io/jiwonlee42/store-service:latest
           imagePullPolicy: Always
           resources:
             requests:

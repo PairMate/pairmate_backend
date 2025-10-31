@@ -23,11 +23,9 @@ spec:
       labels:
         app: config-server
     spec:
-      imagePullSecrets:
-        - name: ncr-secret
       containers:
         - name: config-server
-          image: pairmate-registry.kr.ncr.ntruss.com/config-server:latest
+          image: docker.io/jiwonlee42/config-server:latest
           imagePullPolicy: Always
           resources:
             requests:
