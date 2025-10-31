@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import pairmate.store_service.domain.Stores;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Stores, Long> {
     // freePeople이 많은 순서로 모든 가게를 정렬하여 조회
@@ -16,5 +17,11 @@ public interface StoreRepository extends JpaRepository<Stores, Long> {
             "WHERE s.storeName LIKE %:keyword% " +
             "OR s.storeCategory.storeCategoryName LIKE %:keyword%")
     List<Stores> searchStores(@Param("keyword") String keyword);
+
+    // 한 유저가 등록한 가게 존재 여부 확인
+    boolean existsByUserId(Long userId);
+
+    // 유저가 등록한 가게 조회
+    Optional<Stores> findByUserId(Long userId);
 
 }
