@@ -53,5 +53,14 @@ public class Foodlogs extends BaseEntity {
         public void addMenu(FoodLogMenus menu) {
             this.menus.add(menu);
             menu.setFoodlogs(this);
-    }
+        }
+
+        /**
+         * 이 푸드로그(티켓)를 '사용 완료' 상태로 변경합니다.
+         */
+        public void markAsUsed() {
+                this.isUsed = true;
+                this.usedAt = LocalDateTime.now();
+        }
+
 }

@@ -23,6 +23,4 @@ public interface StoreClient {
     StoreDTO.MenuResponse getMenuInfo(
             @PathVariable("menuId") Long menuId
     );
-
-
 }
