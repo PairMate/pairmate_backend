@@ -30,7 +30,7 @@ spec:
           command: ['sh', '-c', 'until nc -z eureka-server 8761; do echo waiting eureka; sleep 3; done;']
       containers:
         - name: gateway-service
-          image: jiwonlee42/pairmate-registry/gateway-service:latest
+          image: docker.io/jiwonlee42/gateway-service:latest
           imagePullPolicy: Always
           resources:
             requests:

@@ -25,7 +25,7 @@ spec:
           command: ['sh', '-c', 'until nc -z config-server 8888; do echo waiting config; sleep 3; done;']
       containers:
         - name: eureka-server
-          image: jiwonlee42/eureka-server:latest
+          image: docker.io/jiwonlee42/eureka-server:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8761

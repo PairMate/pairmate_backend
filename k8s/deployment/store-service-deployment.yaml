@@ -34,7 +34,7 @@ spec:
 
       containers:
         - name: store-service
-          image: jiwonlee42/store-service:latest
+          image: docker.io/jiwonlee42/store-service:latest
           imagePullPolicy: Always
           resources:
             requests:

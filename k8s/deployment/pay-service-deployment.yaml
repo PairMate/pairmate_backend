@@ -33,7 +33,7 @@ spec:
 
       containers:
         - name: pay-service
-          image: jiwonlee42/pay-service:latest
+          image: docker.io/jiwonlee42/pay-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8083

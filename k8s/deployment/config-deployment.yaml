@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: config-server
-          image: jiwonlee42/config-server:latest
+          image: docker.io/jiwonlee42/config-server:latest
           imagePullPolicy: Always
           resources:
             requests:

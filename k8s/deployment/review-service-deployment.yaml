@@ -38,7 +38,7 @@ spec:
             limits:
               cpu: "200m"
               memory: "320Mi"
-          image: jiwonlee42/review-service:latest
+          image: docker.io/jiwonlee42/review-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8084

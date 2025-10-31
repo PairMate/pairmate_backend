@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: jiwonlee42/frontendservice:latest
+          image: docker.io/jiwonlee42/frontendservice:latest
           imagePullPolicy: Always
           resources:
             requests:
