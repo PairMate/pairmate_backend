@@ -15,6 +15,8 @@ public class StoreDTO {
         private String category;
         private String storeType;
         private String address;
+
+        private Long userId;
     }
 
     @Getter
@@ -25,5 +27,7 @@ public class StoreDTO {
         private String menuName;
         private Integer price;
         private Boolean available;
+
+        private Long storeId;
     }
 }
