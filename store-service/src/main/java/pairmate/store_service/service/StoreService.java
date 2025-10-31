@@ -114,6 +114,11 @@ public class StoreService {
                 throw new CustomException(ErrorCode.FORBIDDEN);
             }
 
+            // 한 유저 당 하나의 가게만 등록 가능하도록 체크
+        if (storeRepository.existsByUserId(userId)) {
+            throw new CustomException(ErrorCode.STORE_ALREADY_EXISTS, "이미 가게를 등록한 사용자입니다.");
+        }  
+
         if (request.getStoreOpenTime() != null && request.getStoreCloseTime() != null &&
                 request.getStoreCloseTime().isBefore(request.getStoreOpenTime())) {
             throw new CustomException(ErrorCode.INVALID_REQUEST, "영업 종료 시간은 시작 시간보다 빠를 수 없습니다.");
@@ -220,26 +225,4 @@ public class StoreService {
         );
     }
 
-    // 내가 등록한 가게 상세정보 조회
-    @Transactional(readOnly = true)
-    public StoreResponse getMyStoreDetail(Long storeId, Long userId) {
-        // 가게 존재 여부와 소유자 확인
-        Stores store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
-        
-        // 요청한 사용자가 가게 소유자인지 확인
-        if (!store.getUserId().equals(userId)) {
-            throw new CustomException(ErrorCode.FORBIDDEN, "본인이 등록한 가게만 조회할 수 있습니다.");
-        }
-
-        ReviewStatsDto stats;
-        try {
-            ApiResponse<ReviewStatsDto> response = reviewClient.getReviewStatsByStoreId(store.getStoreId());
-            stats = response.getResult();
-        } catch (Exception e) {
-            stats = new ReviewStatsDto(0.0, 0L);
-        }
-
-        return StoreResponse.from(store, stats);
-    }
 }
