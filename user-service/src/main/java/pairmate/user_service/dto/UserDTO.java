@@ -16,11 +16,13 @@ public class UserDTO {
         private String nickname;
         private String loginId;
         private TokenDTO token;
+        private UserType userType;
 
         public LoginResponseDTO(Users user, TokenDTO token) {
             this.userId = user.getUserId();
             this.nickname = user.getNickname();
             this.loginId = user.getLoginId();
+            this.userType = user.getUserType();
             this.token = token;
         }
     }
