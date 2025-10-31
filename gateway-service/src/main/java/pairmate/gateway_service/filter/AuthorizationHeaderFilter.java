@@ -68,7 +68,9 @@ public class AuthorizationHeaderFilter implements GlobalFilter, Ordered {
             // Auth 관련
             "/api/auth/login",
             "/api/auth/signup",
-            "/api/auth/reissue"
+            "/api/auth/reissue",
+            "/api/auth/confirm/nickname",
+            "/api/auth/confirm/id"
     );
 
 
