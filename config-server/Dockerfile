@@ -1,5 +1,5 @@
 # ---------- 빌드 단계 ----------
-FROM pairmate-registry.kr.ncr.ntruss.com/pairmate-registry/openjdk:17-jdk-slim AS build
+FROM openjdk:17-jdk-slim AS build
 WORKDIR /app
 
 COPY gradlew settings.gradle build.gradle ./
