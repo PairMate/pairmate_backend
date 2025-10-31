@@ -20,6 +20,8 @@ spec:
       labels:
         app: gateway-service
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       # eureka, config 대기
       initContainers:
         - name: wait-for-config

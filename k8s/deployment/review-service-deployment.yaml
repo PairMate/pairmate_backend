@@ -18,6 +18,8 @@ spec:
       labels:
         app: review-service
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       initContainers:
         - name: wait-for-config
           image: busybox

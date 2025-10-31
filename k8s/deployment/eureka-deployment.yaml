@@ -18,6 +18,8 @@ spec:
       labels:
         app: eureka-server
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       # config 실행 대기
       initContainers:
         - name: wait-for-config

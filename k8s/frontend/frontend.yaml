@@ -21,6 +21,8 @@ spec:
       labels:
         app: frontend-service
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       containers:
         - name: frontend
           image: docker.io/jiwonlee42/frontendservice:latest

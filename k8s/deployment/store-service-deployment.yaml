@@ -21,6 +21,8 @@ spec:
       labels:
         app: store-service
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       initContainers:
         - name: wait-for-config
           image: busybox
