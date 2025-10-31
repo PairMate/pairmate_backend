@@ -63,7 +63,7 @@ public class CardController {
     }
 
     /**
-     * 카드 잔액 조회
+     * 카드 일일 한도조회
      */
     @GetMapping("/cash/{cardId}")
     public ApiResponse<CardDTO.CardCashResponseDTO> getCardBalance(

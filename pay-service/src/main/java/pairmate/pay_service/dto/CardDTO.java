@@ -87,7 +87,7 @@ public class CardDTO {
     public static class CardCashResponseDTO {
         private int cash;
         public CardCashResponseDTO(ChildCards childCards) {
-            this.cash = childCards.getCash();
+            this.cash = childCards.getDayLimit();
         }
     }
 

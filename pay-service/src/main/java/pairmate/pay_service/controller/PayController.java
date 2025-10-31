@@ -27,4 +27,13 @@ public class PayController {
         return ApiResponse.onSuccess(null, SuccessCode.OK);
     }
 
+    /**
+     * 최근 결제 티켓 6건 조회
+     */
+    @GetMapping("/recent")
+    public ApiResponse<?> getRecentFoodLogs(
+            @RequestHeader("X-User-Id") Long userId
+    ) {
+        return ApiResponse.onSuccess(payService.getRecentFoodLogs(userId), SuccessCode.OK);
+    }
 }

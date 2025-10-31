@@ -21,7 +21,12 @@ public class FoodLogMenus {
     private Foodlogs foodlogs;
 
     @Column(name = "menu_id", nullable = false)
-    private Long menuId; // 외부 서비스 FK
+    private Long menuId;
+
+    @Column(name = "menu_name", nullable = false)
+    private String menuName;
+
+    private Integer price;
 
     public void setFoodlogs(Foodlogs foodlogs) {
         this.foodlogs = foodlogs;
