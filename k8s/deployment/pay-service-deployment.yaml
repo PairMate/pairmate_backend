@@ -35,7 +35,7 @@ spec:
 
       containers:
         - name: pay-service
-          image: pairmate-registry.kr.ncr.ntruss.com/pay-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pairmate-registry/pay-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8083

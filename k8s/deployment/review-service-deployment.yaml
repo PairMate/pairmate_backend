@@ -40,7 +40,7 @@ spec:
             limits:
               cpu: "200m"
               memory: "320Mi"
-          image: pairmate-registry.kr.ncr.ntruss.com/review-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pairmate-registry/review-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8084

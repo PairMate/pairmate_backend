@@ -25,7 +25,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: frontend
-          image: pairmate-registry.kr.ncr.ntruss.com/frontendservice:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pairmate-registry/frontendservice:latest
           imagePullPolicy: Always
           resources:
             requests:

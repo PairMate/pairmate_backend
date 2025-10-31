@@ -37,7 +37,7 @@ spec:
 
       containers:
         - name: store-service
-          image: pairmate-registry.kr.ncr.ntruss.com/store-service:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pairmate-registry/store-service:latest
           imagePullPolicy: Always
           resources:
             requests:

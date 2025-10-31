@@ -27,7 +27,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: config-server
-          image: pairmate-registry.kr.ncr.ntruss.com/config-server:latest
+          image: pairmate-registry.kr.ncr.ntruss.com/pairmate-registry/config-server:latest
           imagePullPolicy: Always
           resources:
             requests:
