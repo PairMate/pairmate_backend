@@ -8,8 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import pairmate.common_libs.exception.CustomException;
 import pairmate.common_libs.response.ApiResponse;
 import pairmate.common_libs.response.ErrorCode;
-import pairmate.pay_service.dto.StoreDTO.MenuResponse;
-import pairmate.pay_service.dto.StoreDTO.StoreResponse;
 import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.store_service.domain.Menus;
 import pairmate.store_service.domain.StoreCategories;
