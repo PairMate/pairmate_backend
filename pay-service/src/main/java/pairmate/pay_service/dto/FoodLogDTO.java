@@ -4,6 +4,8 @@ package pairmate.pay_service.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pairmate.pay_service.domain.FoodLogMenus;
+import pairmate.pay_service.domain.Foodlogs;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,12 +25,11 @@ public class FoodLogDTO {
     }
 
     @Getter
-    @NoArgsConstructor
+    @Builder
     public static class MenuResponseDTO {
         private Long menuId;
         private String menuName;
         private Integer price;
-        private String category;
     }
 
     @Getter
