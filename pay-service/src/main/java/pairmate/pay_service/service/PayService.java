@@ -15,7 +15,7 @@ import pairmate.pay_service.dto.PayDTO;
 import pairmate.pay_service.openfeign.StoreClient;
 import pairmate.pay_service.repository.ChildCardsRepository;
 import pairmate.pay_service.repository.FoodLogMenusRepository;
-import pairmate.pay_service.repository.FoodLogsRepository;
+import pairmate.pay_service.repository.FoodLogRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PayService {
 
-    private final FoodLogsRepository foodLogsRepository;
+    private final FoodLogRepository foodLogsRepository;
     private final FoodLogMenusRepository foodLogMenusRepository;
     private final ChildCardsRepository childCardsRepository;
     private final PayConverter payConverter;
