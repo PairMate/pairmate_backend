@@ -31,7 +31,7 @@ public class FileUploadService {
         String originalFileName = file.getOriginalFilename();
 
         // 고유한 파일 이름 생성 (UUID 사용)
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName;
+        String uniqueFileName = "reviews/" + UUID.randomUUID().toString() + "_" + originalFileName;
 
         // 파일 메타데이터 생성 (파일 크기, 타입 등)
         ObjectMetadata metadata = new ObjectMetadata();

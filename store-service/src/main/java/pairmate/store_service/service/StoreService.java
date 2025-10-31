@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import pairmate.common_libs.exception.CustomException;
 import pairmate.common_libs.response.ApiResponse;
 import pairmate.common_libs.response.ErrorCode;
+import pairmate.pay_service.dto.StoreDTO.MenuResponse;
+import pairmate.pay_service.dto.StoreDTO.StoreResponse;
 import pairmate.common_libs.dto.ReviewStatsDto;
 import pairmate.store_service.domain.Menus;
 import pairmate.store_service.domain.StoreCategories;
@@ -241,5 +243,18 @@ public class StoreService {
         }
 
         return StoreResponse.from(store, stats);
+    }
+
+    /**
+     * 사용자 ID로 해당 사용자의 가게 ID를 조회합니다.
+     * @param userId 사용자 ID
+     * @return 가게 ID
+     * @throws CustomException 가게를 찾을 수 없는 경우 STORE_NOT_FOUND 예외 발생
+     */
+    @Transactional(readOnly = true)
+    public Long getStoreIdByUserId(Long userId) {
+        return storeRepository.findByUserId(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND, "해당 사용자의 가게를 찾을 수 없습니다."))
+                .getStoreId();
     }
 }
