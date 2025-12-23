@@ -4,6 +4,10 @@
 MSA(Microservices Architecture) 기반으로 서비스가 독립적으로 배포 및 확장 가능하도록 설계되었습니다.
 SpringBoot 기반 백엔드 레포지토리입니다.
 
+<div align="center">
+<img width="70%" src="https://github.com/user-attachments/assets/ece2f279-d183-42fb-97d2-0faf97c1178e" />
+</div>
+
 ## 🛠 Tech Stack
 <img src="https://skillicons.dev/icons?i=spring,mysql,redis,docker,kubernetes,github" height="50">
 
@@ -26,13 +30,50 @@ SpringBoot 기반 백엔드 레포지토리입니다.
 ## 📖 프로젝트 소개
 
 **Let's Eat**는 아동급식카드 사용의 접근성을 높이고, 영양 균형 관리를 게임화하여 아이들이 즐겁게 식사할 수 있도록 돕는 서비스입니다.  
-마을 탐험 콘셉트로 음식점과 편의점을 방문하고, AI 영양사 NPC가 맞춤형 영양 조언을 제공합니다.
 
 **주요 특징**
 - 게임형 마을 인터페이스로 직관적인 가게 탐색  
 - 디지털 초대장 시스템으로 오프라인 결제 간소화  
 - OpenFeign 기반 서비스 간 동기 통신  
-- Kubernetes 환경에서의 안정적인 MSA 운영  
+- Kubernetes 환경에서의 안정적인 MSA 운영
+
+<div align="center">
+
+<img width="70%" src="https://github.com/user-attachments/assets/ea465397-9bd9-4470-bad5-e659abb6119e" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/06bfded3-65e0-43c2-b09a-330b5e7b976e" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/1fb615af-8b7d-4175-b229-a7132131f103" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/d9dde671-4c44-41b5-99ba-cdbe3260de84" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/42adc30d-b362-4775-9083-75e66cf61f98" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/9160caa2-81f0-40cd-a077-9394332363c2" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/77883950-92dd-4a0d-93eb-3063ba1338c0" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/52c3f07e-9f64-4cac-803e-13ab4fc5b890" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/41a3a404-3c74-41f2-ab85-9bb383f965a9" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/f20e5aba-1bf1-4723-8f46-da6d69825565" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/d6d668aa-18dd-43df-8873-fd62ceb71f30" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/e929580e-9aac-4c48-8bd0-b2673106dbb2" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/9b8c717f-7cd6-4a84-823e-0615d0a97574" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/eb1f296b-6872-423e-a983-cd6ab14e4a22" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/f0afe463-212c-47a8-9a88-05912fb385af" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/cd735592-df96-40f0-8e6c-30c60c70abfe" />
+
+<img width="70%" src="https://github.com/user-attachments/assets/29ed7149-4078-49ec-aab5-c1e4b589842d" />
+
+</div>
 
 ---
 
