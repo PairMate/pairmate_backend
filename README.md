@@ -82,7 +82,7 @@ SpringBoot 기반 백엔드 레포지토리입니다.
 | 구분 | 기술 |
 |------|------|
 | **Language** | Java |
-| **Framework** | Spring Boot |
+| **Framework** | Spring Boot, Spring Cloud |
 | **Database** | MySQL, Redis |
 | **Infra** | Docker, Kubernetes(NKS), Naver Cloud Platform |
 | **CI/CD** | NCP SourceCommit, SourceBuild, SourceDeploy, SourcePipeline |
